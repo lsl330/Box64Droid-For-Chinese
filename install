@@ -12,6 +12,8 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pac
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+echo -e "替换TFM为中文版"
+cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/TFM.exe $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
 echo -e " 下载changewinever替换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
 echo -e " 更新changewinever"
