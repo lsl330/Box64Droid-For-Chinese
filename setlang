@@ -1,0 +1,30 @@
+echo "切换语言环境"
+echo "1) 简体中文"
+echo "2) 繁體中文"
+echo "3) 日文"
+echo "4) engligh"
+echo -e ""
+read lang
+cd ~/
+if [[ $lang == 1 ]]
+then
+	echo -e " 替换bashrc为简体中文环境"
+	sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+elif [[ $lang == 2 ]]
+then
+    echo -e " 替换bashrc为繁体中文环境"
+	sed -i 's/en_US/zh_TW/g;s/zh_CN/zh_TW/g;s/ja_JP/zh_TW/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+elif [[ $lang == 3 ]]
+then
+    echo -e " 替换bashrc为日文环境"
+	sed -i 's/en_US/ja_JP/g;s/zh_CN/ja_JP/g;s/zh_TW/ja_JP/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+elif [[ $lang == 4 ]]
+then
+    echo -e " 替换bashrc为英文环境"
+	sed -i 's/ja_JP/en_US/g;s/zh_CN/en_US/g;s/zh_TW/en_US/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+else
+    echo "Unknown option"
+    clear
+    setlang
+fi
+echo "语言环境切换成功"
