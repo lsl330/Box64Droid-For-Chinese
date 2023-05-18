@@ -4,7 +4,7 @@ echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功�
 echo -e " 补丁下载中"
 wget https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz &>/dev/null
 tar -xf Chinese-LANG-Pack.tar.xz
-rm -f Chinese-LANG-Pack.tar.xz
+rm -f Chinese-LANG-Pack.tar.xz*
 echo -e " 移动补丁到ubuntu目录"
 mv Chinese-LANG-Pack /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root
 echo -e " 复制字体文件"
@@ -13,7 +13,7 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pac
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
-echo -e "替换TFM为中文版"
+echo -e " 替换TFM为中文版"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/TFM.exe $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
 then
