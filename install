@@ -34,3 +34,4 @@ chmod +x lang
 mv -f lang $PREFIX/bin/lang
 echo -e " 配置语言环境切换文件，以后在termux上运行lang即可切换语言环境"
 echo -e " 安装完成，请重新使用start-box运行游戏"
+rm -f install
