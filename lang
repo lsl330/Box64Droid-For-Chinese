@@ -27,4 +27,4 @@ else
     clear
     lang
 fi
-echo "语言环境切换成功"
+echo " 语言环境切换成功"
