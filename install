@@ -7,6 +7,7 @@ wget https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-
 tar -xf Chinese-LANG-Pack.tar.xz
 rm -f Chinese-LANG-Pack.tar.xz
 echo -e " 移动补丁到ubuntu目录"
+rm -rf /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack
 mv -f Chinese-LANG-Pack /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/
 echo -e " 复制字体文件"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
