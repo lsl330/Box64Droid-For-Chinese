@@ -14,9 +14,14 @@ echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
 echo -e "替换TFM为中文版"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/TFM.exe $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
-echo -e " 下载changewinever替换文件"
-wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
-echo -e " 更新changewinever"
-printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
-echo -e " 更新changewinever成功，此后通过start-box更换wine版本将自动更换中文环境"
+if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
+then
+	echo -e " changewinever已更新，无需替换"
+else
+	echo -e " 下载changewinever替换文件"
+  wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
+  echo -e " 更新changewinever"
+  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
+  echo -e " 更新changewinever成功，此后通过start-box更换wine版本将自动更换中文环境"
+fi
 echo -e " 安装完成，请重新使用start-box运行游戏"
