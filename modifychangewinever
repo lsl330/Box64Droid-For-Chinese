@@ -2,7 +2,5 @@ echo -e "复制字体文件"
 cp -f /root/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc
 cp -f /root/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf
 cp -f /root/Chinese-LANG-Pack/locale-archive /usr/lib/locale/locale-archive
-echo -e "替换bashrc为中文环境"
-sed -i 's/en_US/zh_CN/g' /root/.bashrc
 echo -e "替换TFM为中文版"
 cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe
