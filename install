@@ -1,5 +1,6 @@
 clear
 echo -e " Box64Droid中文化补丁..."
+echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
 wget https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz &>/dev/null
 tar -xf Chinese-LANG-Pack.tar.xz
@@ -11,4 +12,9 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pac
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+echo -e " 下载changewinever替换文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
+echo -e " 更新changewinever"
+printf "%s\n" "/WINEDLLOVERRIDES/r install" w | ed -s $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/changewinever
+echo -e " 更新changewinever成功，此后通过start-box更换wine版本将自动更换中文环境"
 echo -e " 安装完成，请重新使用start-box运行游戏"
