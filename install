@@ -24,7 +24,12 @@ else
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
   printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
-  echo -e " 更新changewinever成功，此后通过start-box更换wine版本将自动更换中文环境"
+  echo -e " 更新changewinever成功"
   rm -f modifychangewinever
 fi
+echo -e " 下载语言环境切换文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang &>/dev/null
+chmod +x lang
+mv lang $PREFIX/bin/lang
+echo -e " 配置语言环境切换文件，以后在termux上运行lang即可切换语言环境"
 echo -e " 安装完成，请重新使用start-box运行游戏"
