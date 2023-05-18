@@ -25,6 +25,6 @@ then
 else
     echo "Unknown option"
     clear
-    setlang
+    lang
 fi
 echo "语言环境切换成功"
