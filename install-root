@@ -1,0 +1,37 @@
+clear
+rm -f Chinese-LANG-Pack.tar.xz
+echo -e " Box64Droid中文化补丁..."
+echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+echo -e " 补丁下载中"
+wget https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz &>/dev/null
+tar -xf Chinese-LANG-Pack.tar.xz
+rm -f Chinese-LANG-Pack.tar.xz
+echo -e " 移动补丁到ubuntu目录"
+rm -rf /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack
+mv -f Chinese-LANG-Pack /data/data/com.termux/files/home/ubuntu/root/
+echo -e " 复制字体文件"
+cp -f $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
+cp -f $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
+cp -f $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
+echo -e " 替换bashrc为中文环境"
+sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
+echo -e " 替换TFM为中文版"
+cp -f $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/TFM.exe $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
+if cat $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
+then
+	echo -e " changewinever已更新，无需替换"
+else
+	echo -e " 下载changewinever替换文件"
+  wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
+  echo -e " 更新changewinever"
+  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s $ROOTFSPATH/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
+  echo -e " 更新changewinever成功"
+  rm -f modifychangewinever
+fi
+echo -e " 下载语言环境切换文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
+chmod +x lang-root 
+mv -f lang-root  $ROOTFSPATH/bin/lang
+echo -e " 配置语言环境切换文件，以后在termux上运行lang即可切换语言环境"
+echo -e " 安装完成，请重新使用start-box运行游戏"
+rm -f install
