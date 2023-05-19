@@ -17,18 +17,18 @@ echo -e " 替换bashrc为中文环境"
 sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
 echo -e " 替换TFM为中文版"
 sudo cp -f /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack/TFM.exe /data/data/com.termux/files/home/ubuntu/opt/TFM.exe
-if sudo cat /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
+sudo chmod o+rw /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
+if cat /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
 then
 	echo -e " changewinever已更新，无需替换"
 else
 	echo -e " 下载changewinever替换文件"
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
-  sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever /data/data/com.termux/files/home/changewinever
-  sudo chmod +w changewinever
-  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s changewinever
+  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
   echo -e " 更新changewinever成功"
   rm -f modifychangewinever
+  sudo chmod o-rw /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
