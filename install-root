@@ -1,6 +1,6 @@
 clear
 rm -f Chinese-LANG-Pack.tar.xz
-echo -e " Box64Droid-chroot中文化补丁测试..."
+echo -e " Box64Droid-chroot中文化补丁..."
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
 wget https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz &>/dev/null
@@ -18,17 +18,19 @@ sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.ter
 echo -e " 替换TFM为中文版"
 sudo cp -f /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack/TFM.exe /data/data/com.termux/files/home/ubuntu/opt/TFM.exe
 sudo chmod o+rw /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
-if cat /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
+if sudo cat /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
 then
 	echo -e " changewinever已更新，无需替换"
 else
 	echo -e " 下载changewinever替换文件"
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
-  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
+  sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever /data/data/com.termux/files/home/changewinever
+  sudo chmod o+rw /data/data/com.termux/files/home/changewinever
+  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s /data/data/com.termux/files/home/changewinever
   echo -e " 更新changewinever成功"
   rm -f modifychangewinever
-  sudo chmod o-rw /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
+  sudo chmod o-rw /data/data/com.termux/files/home/changewinever
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
