@@ -25,7 +25,7 @@ else
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
   sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever changewinever
-  chmod +w changewinever
+  sudo chmod +w changewinever
   printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s changewinever
   sudo mv -f changewinever  /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
   echo -e " 更新changewinever成功"
@@ -33,7 +33,7 @@ else
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
-sudo chmod +x lang-root 
+chmod +x lang-root 
 sudo mv -f lang-root  /data/data/com.termux/files/home/ubuntu/bin/lang
 echo -e " 配置语言环境切换文件，以后在termux上运行lang即可切换语言环境"
 echo -e " 安装完成，请重新使用start-box运行游戏"
