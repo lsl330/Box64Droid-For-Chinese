@@ -24,7 +24,7 @@ else
 	echo -e " 下载changewinever替换文件"
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
-  sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever changewinever
+  sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever /data/data/com.termux/files/home/changewinever
   sudo chmod +w changewinever
   printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s changewinever
   sudo mv -f changewinever  /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
