@@ -25,6 +25,7 @@ else
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
   sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever changewinever
+  chmod +w changewinever
   printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s changewinever
   sudo mv -f changewinever  /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
   echo -e " 更新changewinever成功"
