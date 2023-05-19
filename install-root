@@ -27,7 +27,7 @@ else
   sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever /data/data/com.termux/files/home/changewinever
   sudo chmod +w changewinever
   printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s changewinever
-  sudo mv -f changewinever  /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
+  #sudo mv -f changewinever  /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
   echo -e " 更新changewinever成功"
   rm -f modifychangewinever
 fi
