@@ -33,7 +33,7 @@ then
 	echo -e " 已打proot突破限制补丁"
 else
 	echo -e " 备份proot限制文件"
-	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf.bak
+	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf.bakup
 	echo -e " 突破proot连接数限制"
 	echo -e >> $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf
 	echo "#unlock proot limit" >> $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf
