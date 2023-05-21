@@ -7,14 +7,14 @@ wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/release
 tar -xf Chinese-LANG-Pack.tar.xz
 rm -f Chinese-LANG-Pack.tar.xz
 echo -e " 移动补丁到ubuntu目录"
-rm -rf /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack
-mv -f Chinese-LANG-Pack /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/
+rm -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack
+mv -f Chinese-LANG-Pack $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/
 echo -e " 复制字体文件"
-cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
+cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc $PREFIX/vTEar/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
-sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
 echo -e " 替换TFM为中文版"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/TFM.exe $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
