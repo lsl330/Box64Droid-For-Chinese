@@ -10,7 +10,7 @@ echo -e " 移动补丁到ubuntu目录"
 rm -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack
 mv -f Chinese-LANG-Pack $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/
 echo -e " 复制字体文件"
-cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc $PREFIX/vTEar/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
+cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
