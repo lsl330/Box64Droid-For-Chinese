@@ -9,19 +9,19 @@ cd ~/
 if [[ $lang == 1 ]]
 then
 	echo -e " 替换bashrc为简体中文环境"
-	sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
+	sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' ~/ubuntu/root/.bashrc
 elif [[ $lang == 2 ]]
 then
     echo -e " 替换bashrc为繁体中文环境"
-	sed -i 's/en_US/zh_TW/g;s/zh_CN/zh_TW/g;s/ja_JP/zh_TW/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
+	sed -i 's/en_US/zh_TW/g;s/zh_CN/zh_TW/g;s/ja_JP/zh_TW/g' ~/ubuntu/root/.bashrc
 elif [[ $lang == 3 ]]
 then
     echo -e " 替换bashrc为日文环境"
-	sed -i 's/en_US/ja_JP/g;s/zh_CN/ja_JP/g;s/zh_TW/ja_JP/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
+	sed -i 's/en_US/ja_JP/g;s/zh_CN/ja_JP/g;s/zh_TW/ja_JP/g' ~/ubuntu/root/.bashrc
 elif [[ $lang == 4 ]]
 then
     echo -e " 替换bashrc为英文环境"
-	sed -i 's/ja_JP/en_US/g;s/zh_CN/en_US/g;s/zh_TW/en_US/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
+	sed -i 's/ja_JP/en_US/g;s/zh_CN/en_US/g;s/zh_TW/en_US/g' ~/ubuntu/root/.bashrc
 else
     echo "Unknown option"
     clear
