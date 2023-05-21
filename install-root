@@ -7,36 +7,36 @@ wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/release
 tar -xf Chinese-LANG-Pack.tar.xz
 rm -f Chinese-LANG-Pack.tar.xz
 echo -e " 移动补丁到ubuntu目录"
-sudo rm -rf /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack
-sudo mv -f Chinese-LANG-Pack /data/data/com.termux/files/home/ubuntu/root/
+sudo rm -rf ~/ubuntu/root/Chinese-LANG-Pack
+sudo mv -f Chinese-LANG-Pack ~/ubuntu/root/
 echo -e " 复制字体文件"
-sudo cp -f /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc /data/data/com.termux/files/home/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
-sudo cp -f /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf /data/data/com.termux/files/home/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
-sudo cp -f /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack/locale-archive /data/data/com.termux/files/home/ubuntu/usr/lib/locale/locale-archive
+sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc ~/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
+sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf ~/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
+sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive ~/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
-sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' /data/data/com.termux/files/home/ubuntu/root/.bashrc
+sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' ~/ubuntu/root/.bashrc
 echo -e " 替换TFM为中文版"
-sudo cp -f /data/data/com.termux/files/home/ubuntu/root/Chinese-LANG-Pack/TFM.exe /data/data/com.termux/files/home/ubuntu/opt/TFM.exe
-sudo chmod o+rw /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever
-if sudo cat /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
+sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/TFM.exe ~/ubuntu/opt/TFM.exe
+sudo chmod o+rw ~/ubuntu/opt/tools/changewinever
+if sudo cat ~/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
 then
 	echo -e " changewinever已更新，无需替换"
 else
 	echo -e " 下载changewinever替换文件"
   wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
   echo -e " 更新changewinever"
-  sudo cp -f /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever /data/data/com.termux/files/home/changewinever
-  sudo chmod o+rw /data/data/com.termux/files/home/changewinever
-  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s /data/data/com.termux/files/home/changewinever
+  sudo cp -f ~/ubuntu/opt/tools/changewinever ~/changewinever
+  sudo chmod o+rw ~/changewinever
+  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s ~/changewinever
   echo -e " 更新changewinever成功"
   rm -f modifychangewinever
-  sudo chmod o-rw /data/data/com.termux/files/home/changewinever
-  sudo mv -f /data/data/com.termux/files/home/changewinever /data/data/com.termux/files/home/ubuntu/opt/tools/changewinever 
+  sudo chmod o-rw ~/changewinever
+  sudo mv -f ~/changewinever ~/ubuntu/opt/tools/changewinever 
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
 chmod +x lang-root 
-sudo mv -f lang-root  /data/data/com.termux/files/home/ubuntu/bin/lang-root
+sudo mv -f lang-root  ~/ubuntu/bin/lang-root
 echo -e " 配置语言环境切换文件，以后在termux上运行lang-root即可切换语言环境"
 echo -e " 安装完成，请重新使用start-box运行游戏"
 rm -f install
