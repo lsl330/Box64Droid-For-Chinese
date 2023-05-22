@@ -10,18 +10,22 @@ if [[ $lang == 1 ]]
 then
 	echo -e " 替换bashrc为简体中文环境"
 	sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' ~/ubuntu/root/.bashrc
+ sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 2 ]]
 then
     echo -e " 替换bashrc为繁体中文环境"
 	sudo sed -i 's/en_US/zh_TW/g;s/zh_CN/zh_TW/g;s/ja_JP/zh_TW/g' ~/ubuntu/root/.bashrc
+ sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-tw ~/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 3 ]]
 then
     echo -e " 替换bashrc为日文环境"
 	sudo sed -i 's/en_US/ja_JP/g;s/zh_CN/ja_JP/g;s/zh_TW/ja_JP/g' ~/ubuntu/root/.bashrc
+ sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-jp ~/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 4 ]]
 then
     echo -e " 替换bashrc为英文环境"
 	sudo sed -i 's/ja_JP/en_US/g;s/zh_CN/en_US/g;s/zh_TW/en_US/g' ~/ubuntu/root/.bashrc
+ sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-en ~/ubuntu/usr/lib/locale/locale-archive
 else
     echo "Unknown option"
     clear
