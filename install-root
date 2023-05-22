@@ -12,7 +12,7 @@ sudo mv -f Chinese-LANG-Pack ~/ubuntu/root/
 echo -e " 复制字体文件"
 sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc ~/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
 sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf ~/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
-sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive ~/ubuntu/usr/lib/locale/locale-archive
+sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' ~/ubuntu/root/.bashrc
 echo -e " 替换TFM为中文版"
