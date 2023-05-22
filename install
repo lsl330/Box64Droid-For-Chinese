@@ -1,6 +1,6 @@
 clear
 rm -f Chinese-LANG-Pack.tar.xz
-echo -e " Box64Droid中文化补丁...1"
+echo -e " Box64Droid中文化补丁..."
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
 wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
