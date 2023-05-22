@@ -18,7 +18,7 @@ sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $PREFIX/var/lib/proot-d
 echo -e " 替换TFM为中文版"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/TFM.exe $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项"
-cp -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/Shortcuts $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt
+cp -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/Shortcuts $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/
 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
 then
 	echo -e " changewinever已更新，无需替换"
