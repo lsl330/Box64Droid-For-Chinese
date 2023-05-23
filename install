@@ -105,7 +105,7 @@ if [ -f "$PREFIX/bin/start-box-virgl" ]; then
 	if cat $PREFIX/bin/start-box-virgl |grep resolution > /dev/null; then
 		echo -e " start-box-virgl已更新，无需更改"
 	else
-		cp -f $PREFIX/bin/start-box $PREFIX/bin/vbox
+		cp -f $PREFIX/bin/start-box-virgl $PREFIX/bin/vbox
 		echo -e " 修改start-box-virgl文件，正确启动后，以后可用vbox进行快捷启动"
 		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" $PREFIX/bin/start-box-virgl
 		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/quickstart" $PREFIX/bin/start-box-virgl
