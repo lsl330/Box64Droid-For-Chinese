@@ -51,7 +51,7 @@ else
 	sudo mv -f run.bat ~/ubuntu/root/.wine/dosdevices/d:/run.bat
 fi	
 
-if sudo test -f "/data/data/com.termux/files/home/ubuntu/opt/"; then
+if sudo test -f "/data/data/com.termux/files/home/ubuntu/opt/start"; then
 	if sudo cat ~/ubuntu/opt/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
