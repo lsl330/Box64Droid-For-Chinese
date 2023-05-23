@@ -84,9 +84,9 @@ if [ -f "$PREFIX/bin/start-box" ]; then
 	else
 		cp -f $PREFIX/bin/start-box $PREFIX/bin/pbox
 		echo -e " 修改start-box文件，正确启动后，以后可用pbox进行快捷启动"
-		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" start-box
-		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" start-box
-		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" pbox
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" $PREFIX/bin/start-box
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" $PREFIX/bin/start-box
+		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" $PREFIX/bin/pbox
 	fi
 fi
 if [ -f "$PREFIX/bin/start-box-virgl" ]; then
@@ -95,9 +95,9 @@ if [ -f "$PREFIX/bin/start-box-virgl" ]; then
 	else
 		cp -f $PREFIX/bin/start-box $PREFIX/bin/vbox
 		echo -e " 修改start-box-virgl文件，正确启动后，以后可用vbox进行快捷启动"
-		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" start-box-virgl
-		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" start-box-virgl
-		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" vbox
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" $PREFIX/bin/start-box-virgl
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" $PREFIX/bin/start-box-virgl
+		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" $PREFIX/bin/vbox
 	fi
 fi
 echo -e " 安装完成"
