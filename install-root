@@ -7,18 +7,18 @@ wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/release
 tar -xf Chinese-LANG-Pack.tar.xz
 rm -f Chinese-LANG-Pack.tar.xz
 echo -e " 移动补丁到ubuntu目录"
-sudo rm -rf ~/ubuntu/root/Chinese-LANG-Pack
-sudo mv -f Chinese-LANG-Pack ~/ubuntu/root/
+sudo rm -rf ~/ubuntu/opt/Chinese-LANG-Pack
+sudo mv -f Chinese-LANG-Pack ~/ubuntu/opt/
 echo -e " 复制字体文件"
-sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/SimSun.ttc ~/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
-sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/PMingLiU-TW.ttf ~/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
-sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
+sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc ~/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
+sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf ~/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
+sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' ~/ubuntu/root/.bashrc
 echo -e " 替换TFM为中文版"
-sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/TFM.exe ~/ubuntu/opt/TFM.exe
+sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/TFM.exe ~/ubuntu/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项" 
-sudo cp -rf ~/ubuntu/root/Chinese-LANG-Pack/Shortcuts ~/ubuntu/opt
+sudo cp -rf ~/ubuntu/opt/Chinese-LANG-Pack/Shortcuts ~/ubuntu/opt
 sudo cp -rf ~/ubuntu/opt/Shortcuts/* "~/ubuntu/root/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu"
 sudo chmod o+rw ~/ubuntu/opt/tools/changewinever
 if sudo cat ~/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
@@ -41,5 +41,70 @@ wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-r
 chmod +x lang-root 
 sudo mv -f lang-root  $PREFIX/bin/lang-root
 echo -e " 配置语言环境切换文件，以后在termux上运行lang-root即可切换语言环境"
-echo -e " 安装完成，请重新使用start-box运行游戏"
+
+if [ -f "~/ubuntu/root/.wine/dosdevices/d:/run.bat" ]; then
+	echo -e " d盘已有启动文件，无需替换"
+else
+	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
+	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
+	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
+	mv -f run.bat ~/ubuntu/root/.wine/dosdevices/d:/run.bat
+fi	
+
+if [ -f "~/ubuntu/opt/start" ]; then
+	if cat ~/ubuntu/opt/start |grep 自定义 > /dev/null;then
+		echo -e " start已更新，无需更改"
+	else
+		echo -e " 修改start文件"
+		for((i=1;i<=30;i++)); do
+		 if sudo cat ~/ubuntu/opt/start|head -n $i|grep TFM > /dev/null; then
+			cc=$i
+			break
+		 fi
+		done 
+		sudo sed -i "$cc a fi" ~/ubuntu/opt/start
+		sudo sed -i "$cc i else" ~/ubuntu/opt/start
+		sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" ~/ubuntu/opt/start
+		sudo sed -i "$cc i echo -e "运行自定义run.bat"" ~/ubuntu/opt/start
+		sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" ~/ubuntu/opt/start
+		
+		for((i=1;i<=30;i++)); do
+		 if sudo cat ~/ubuntu/opt/start|head -n $i|grep read\ res > /dev/null; then
+			cb=$i
+			break
+		 fi
+		done 
+		sudo sed -i "$cb a fi" ~/ubuntu/opt/start
+		sudo sed -i "$cb a echo "\$res">/opt/resolution" ~/ubuntu/opt/start
+		sudo sed -i "$cb i else" ~/ubuntu/opt/start
+		sudo sed -i "$cb i res=\$(cat /opt/resolution)" ~/ubuntu/opt/start
+		sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" ~/ubuntu/opt/start
+
+
+		for((i=1;i<=30;i++)); do
+		 if sudo cat ~/ubuntu/opt/start|head -n $i|grep read\ choice > /dev/null; then
+			ca=$i
+			break
+		 fi
+		done 
+		sudo sed -i "$ca a fi" ~/ubuntu/opt/start
+		sudo sed -i "$ca i else" ~/ubuntu/opt/start
+		sudo sed -i "$ca i choice=1" ~/ubuntu/opt/start
+		sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" ~/ubuntu/opt/start
+	fi
+fi
+
+if [ -f "$PREFIX/bin/start-box-root" ]; then
+	if cat $PREFIX/bin/start-box-root |grep resolution > /dev/null; then
+		echo -e " start-box-root已更新，无需更改"
+	else
+		cp -f $PREFIX/bin/start-box-root $PREFIX/bin/cbox
+		echo -e " 修改start-box-root文件，正确启动后，以后可用cbox进行快捷启动"
+		sed -i "2isudo rm -f \~/ubuntu/opt/resolution" $PREFIX/bin/start-box-root
+		sed -i "2isudo rm -f \~/ubuntu/opt/quickstart" $PREFIX/bin/start-box-root
+		sed -i "2isudo echo 1>\~/ubuntu/opt/quickstart" $PREFIX/bin/cbox
+	fi
+fi
+
+echo -e " 安装完成"
 rm -f install
