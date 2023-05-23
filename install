@@ -67,7 +67,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 		sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		
 		for((i=1;i<=30;i++)); do
-		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep TFM > /dev/null; then
+		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep read\ res > /dev/null; then
 			cb=$i
 			break
 		 fi
@@ -75,7 +75,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 		sed -i "$cb a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cb a echo "$res">/opt/resolution" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cb i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-		sed -i "$cb i res=$(cat /opt/resolution)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i res=\$(cat /opt/resolution)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cb i if [ -f "/opt/resolution" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 
 
