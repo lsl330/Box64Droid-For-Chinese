@@ -49,5 +49,56 @@ wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang &
 chmod +x lang
 mv -f lang $PREFIX/bin/lang
 echo -e " 配置语言环境切换文件，以后在termux上运行lang即可切换语言环境"
-echo -e " 安装完成，请重新使用start-box运行游戏"
+if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
+	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start |grep 自定义 > /dev/null;then
+		echo -e " start已更新，无需更改"
+	else
+		echo -e " 修改start文件"
+		for((i=1;i<=30;i++)); do
+		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep TFM > /dev/null; then
+			cb=$i
+			break
+		 fi
+		done 
+		sed -i "$cb a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i echo -e "运行自定义run.bat"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i echo -e if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+
+		for((i=1;i<=30;i++)); do
+		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep read\ choice > /dev/null; then
+			ca=$i
+			break
+		 fi
+		done 
+		sed -i "$ca a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$ca i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$ca i choice=1" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+	fi
+fi
+if [ -f "$PREFIX/bin/start-box" ]; then
+	if cat $PREFIX/bin/start-box |grep opt/resolution > /dev/null; then
+		echo -e " start-box已更新，无需更改"
+	else
+		cp -f $PREFIX/bin/start-box $PREFIX/bin/pbox
+		echo -e " 修改start-box文件，正确启动后，以后可用pbox进行快捷启动"
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" start-box
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" start-box
+		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" pbox
+	fi
+fi
+if [ -f "$PREFIX/bin/start-box-virgl" ]; then
+	if cat $PREFIX/bin/start-box-virgl |grep resolution > /dev/null; then
+		echo -e " start-box-virgl已更新，无需更改"
+	else
+		cp -f $PREFIX/bin/start-box $PREFIX/bin/vbox
+		echo -e " 修改start-box-virgl文件，正确启动后，以后可用vbox进行快捷启动"
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" start-box-virgl
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" start-box-virgl
+		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" vbox
+	fi
+fi
+echo -e " 安装完成"
 rm -f install
