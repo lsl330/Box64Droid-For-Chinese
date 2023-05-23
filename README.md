@@ -12,3 +12,10 @@
 如需恢复，只需在termux上输入
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf.bakup
  $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf
+
+5月23更新
+添加快捷启动，安装中文补丁后，可在termux输入pbox，vbox，cbox进行快捷启动(分别对应start-box，start-box-virgl，start-box-root)
+首次启动需要输入分辨率，此后再次启动会直接进入
+如需变更分辨率，可用对应start-box进入游戏
+另外添加快捷启动run.bat到d盘。默认启动ib。
+如删掉该文件，会自动切换回原有启动。也可自行编辑run.bat达到不同的启动目的。若文件含有中文，需保存为ansi编码。
