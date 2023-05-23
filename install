@@ -49,6 +49,16 @@ wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang &
 chmod +x lang
 mv -f lang $PREFIX/bin/lang
 echo -e " 配置语言环境切换文件，以后在termux上运行lang即可切换语言环境"
+
+if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.wine/dosdevices/d:/run.bat" ]; then
+	echo -e " d盘已有启动文件，无需替换"
+else
+	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
+	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
+	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
+	mv -f run.bat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.wine/dosdevices/d:/run.bat
+fi	
+
 if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
