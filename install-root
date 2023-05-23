@@ -42,7 +42,7 @@ chmod +x lang-root
 sudo mv -f lang-root  $PREFIX/bin/lang-root
 echo -e " 配置语言环境切换文件，以后在termux上运行lang-root即可切换语言环境"
 
-if sudo test -f "~/ubuntu/root/.wine/dosdevices/d:/run.bat"; then
+if sudo test -f "/data/data/com.termux/files/home/ubuntu/root/.wine/dosdevices/d:/run.bat"; then
 	echo -e " d盘已有启动文件，无需替换"
 else
 	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
@@ -51,7 +51,7 @@ else
 	sudo mv -f run.bat ~/ubuntu/root/.wine/dosdevices/d:/run.bat
 fi	
 
-if sudo test -f "~/ubuntu/opt/start"; then
+if sudo test -f "/data/data/com.termux/files/home/ubuntu/opt/"; then
 	if sudo cat ~/ubuntu/opt/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
