@@ -19,7 +19,7 @@ echo -e " 替换TFM为中文版"
 sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/TFM.exe ~/ubuntu/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项" 
 sudo cp -rf ~/ubuntu/opt/Chinese-LANG-Pack/Shortcuts ~/ubuntu/opt
-sudo cp -rf ~/ubuntu/opt/Shortcuts/* "~/ubuntu/root/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu"
+sudo cp -rf ~/ubuntu/opt/Chinese-LANG-Pack/Shortcuts/调试工具 ~/ubuntu/root/.wine/drive_c/ProgramData/Microsoft/Windows/'Start Menu'
 sudo chmod o+rw ~/ubuntu/opt/tools/changewinever
 if sudo cat ~/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
 then
@@ -48,7 +48,7 @@ else
 	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
 	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
 	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
-	mv -f run.bat ~/ubuntu/root/.wine/dosdevices/d:/run.bat
+	sudo mv -f run.bat ~/ubuntu/root/.wine/dosdevices/d:/run.bat
 fi	
 
 if [ -f "~/ubuntu/opt/start" ]; then
