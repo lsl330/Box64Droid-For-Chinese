@@ -102,7 +102,7 @@ if [ -f "$PREFIX/bin/start-box-root" ]; then
 		echo -e " 修改start-box-root文件，正确启动后，以后可用cbox进行快捷启动"
 		sed -i "2isudo rm -f \~/ubuntu/opt/resolution" $PREFIX/bin/start-box-root
 		sed -i "2isudo rm -f \~/ubuntu/opt/quickstart" $PREFIX/bin/start-box-root
-		sed -i "2isudo echo 1>\~/ubuntu/opt/quickstart" $PREFIX/bin/cbox
+		sed -i "2isudo touch ~/ubuntu/opt/quickstart"  $PREFIX/bin/cbox
 	fi
 fi
 
