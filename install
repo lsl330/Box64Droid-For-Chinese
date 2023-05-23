@@ -73,7 +73,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 		sed -i "$cc a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cc i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-		sed -i "$cc i echo -e "运行自定义run.bat"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cc i echo -e " 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		
 		for((i=1;i<=30;i++)); do
