@@ -56,15 +56,28 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 		echo -e " 修改start文件"
 		for((i=1;i<=30;i++)); do
 		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep TFM > /dev/null; then
+			cc=$i
+			break
+		 fi
+		done 
+		sed -i "$cc a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cc i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cc i echo -e "运行自定义run.bat"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		
+		for((i=1;i<=30;i++)); do
+		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep TFM > /dev/null; then
 			cb=$i
 			break
 		 fi
 		done 
 		sed -i "$cb a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb a echo "$res">/opt/resolution" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		sed -i "$cb i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-		sed -i "$cb i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-		sed -i "$cb i echo -e "运行自定义run.bat"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-		sed -i "$cb i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i res=$(cat /opt/resolution)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+		sed -i "$cb i if [ -f "/opt/resolution" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+
 
 		for((i=1;i<=30;i++)); do
 		 if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n $i|grep read\ choice > /dev/null; then
@@ -85,19 +98,19 @@ if [ -f "$PREFIX/bin/start-box" ]; then
 		cp -f $PREFIX/bin/start-box $PREFIX/bin/pbox
 		echo -e " 修改start-box文件，正确启动后，以后可用pbox进行快捷启动"
 		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" start-box
-		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" start-box
-		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" pbox
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/quickstart" start-box
+		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/quickstart" pbox
 	fi
 fi
 if [ -f "$PREFIX/bin/start-box-virgl" ]; then
 	if cat $PREFIX/bin/start-box-virgl |grep resolution > /dev/null; then
 		echo -e " start-box-virgl已更新，无需更改"
 	else
-		cp -f $PREFIX/bin/start-box $PREFIX/bin/vbox
+		cp -f $PREFIX/bin/start-box-virgl $PREFIX/bin/vbox
 		echo -e " 修改start-box-virgl文件，正确启动后，以后可用vbox进行快捷启动"
 		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" start-box-virgl
-		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" start-box-virgl
-		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/qucikstart" vbox
+		sed -i "2irm -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/quickstart" start-box-virgl
+		sed -i "2iecho 1>$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/quickstart" vbox
 	fi
 fi
 echo -e " 安装完成"
