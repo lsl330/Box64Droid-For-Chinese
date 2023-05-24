@@ -9,25 +9,25 @@ cd ~/
 if [[ $lang == 1 ]]
 then
 	echo -e " 替换bashrc为简体中文环境"
-	sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
  cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 2 ]]
 then
     echo -e " 替换bashrc为繁体中文环境"
-	sed -i 's/en_US/zh_TW/g;s/zh_CN/zh_TW/g;s/ja_JP/zh_TW/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_TW.UTF-8/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
  cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-tw $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 3 ]]
 then
     echo -e " 替换bashrc为日文环境"
-	sed -i 's/en_US/ja_JP/g;s/zh_CN/ja_JP/g;s/zh_TW/ja_JP/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/ja_JP.UTF-8/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
  cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-jp $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 4 ]]
 then
     echo -e " 替换bashrc为英文环境"
-	sed -i 's/ja_JP/en_US/g;s/zh_CN/en_US/g;s/zh_TW/en_US/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/en_US.UTF-8/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
  cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-en $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 else
-    echo "Unknown option"
+    echo " 未知操作"
     clear
     lang
 fi
