@@ -21,14 +21,12 @@ sudo cp -f $RootPath/opt/Chinese-LANG-Pack/TFM.exe $RootPath/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项" 
 sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts $RootPath/opt
 sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts/调试工具 $RootPath/root/.wine/drive_c/ProgramData/Microsoft/Windows/'Start Menu'
-sudo chmod o+rw $RootPath/opt/tools/changewinever
 if sudo test -f "$RootPath/opt/tools/changewinever"; then
 	if sudo cat $RootPath/opt/tools/changewinever |grep 替换 > /dev/null;then
 		echo -e " changewinever已更新，无需替换"
 	else
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
-		echo $cd
 		if [ $cd -gt 0 ]; then
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
@@ -67,7 +65,6 @@ if sudo test -f "$RootPath/opt/start"; then
 			sudo sed -i "$cc i echo -e "\ 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" $RootPath/opt/start
 			sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $RootPath/opt/start
 		fi
-		cb=0
 		cb=$(sudo awk '/read res/{print NR}' $RootPath/opt/start|head -n 1)
 		if [ $cb -gt 0 ]; then
 			sudo sed -i "$cb a fi" $RootPath/opt/start
