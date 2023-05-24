@@ -28,11 +28,11 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
 		if [ $cd -gt 0 ]; then
-			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
-			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/tools/changewinever
-			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/tools/changewinever
-			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/tools/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/tools/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/tools/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/tools/changewinever
 		fi
 	fi
