@@ -33,8 +33,8 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 				cd=$i
 				break
 			fi
-		fi
-		if [ $a -ne 0 ]; then
+		done
+		if [ $cd -ne 0 ]; then
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/tools/changewinever
@@ -63,6 +63,9 @@ if sudo test -f "$RootPath/opt/start"; then
 	if sudo cat $RootPath/opt/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
+		ca=0
+		cb=0
+		cc=0
 		echo -e " 修改start文件"
 		for((i=1;i<=30;i++)); do
 		 if sudo cat $RootPath/opt/start|head -n $i|grep TFM > /dev/null; then
@@ -70,24 +73,27 @@ if sudo test -f "$RootPath/opt/start"; then
 			break
 		 fi
 		done 
-		sudo sed -i "$cc a fi" $RootPath/opt/start
-		sudo sed -i "$cc i else" $RootPath/opt/start
-		sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $RootPath/opt/start
-		sudo sed -i "$cc i echo -e "\ 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" $RootPath/opt/start
-		sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $RootPath/opt/start
-		
+		if [ $cc -ne 0 ]; then
+			sudo sed -i "$cc a fi" $RootPath/opt/start
+			sudo sed -i "$cc i else" $RootPath/opt/start
+			sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $RootPath/opt/start
+			sudo sed -i "$cc i echo -e "\ 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" $RootPath/opt/start
+			sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $RootPath/opt/start
+		fi
+		cb=0
 		for((i=1;i<=30;i++)); do
 		 if sudo cat $RootPath/opt/start|head -n $i|grep read\ res > /dev/null; then
 			cb=$i
 			break
 		 fi
 		done 
-		sudo sed -i "$cb a fi" $RootPath/opt/start
-		sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
-		sudo sed -i "$cb i else" $RootPath/opt/start
-		sudo sed -i "$cb i res=\$(cat /opt/resolution)" $RootPath/opt/start
-		sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" $RootPath/opt/start
-
+		if [ $cb -ne 0 ]; then
+			sudo sed -i "$cb a fi" $RootPath/opt/start
+			sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
+			sudo sed -i "$cb i else" $RootPath/opt/start
+			sudo sed -i "$cb i res=\$(cat /opt/resolution)" $RootPath/opt/start
+			sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" $RootPath/opt/start
+		fi
 
 		for((i=1;i<=30;i++)); do
 		 if sudo cat $RootPath/opt/start|head -n $i|grep read\ choice > /dev/null; then
@@ -95,10 +101,12 @@ if sudo test -f "$RootPath/opt/start"; then
 			break
 		 fi
 		done 
-		sudo sed -i "$ca a fi" $RootPath/opt/start
-		sudo sed -i "$ca i else" $RootPath/opt/start
-		sudo sed -i "$ca i choice=1" $RootPath/opt/start
-		sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $RootPath/opt/start
+		if [ $ca -ne 0 ]; then
+			sudo sed -i "$ca a fi" $RootPath/opt/start
+			sudo sed -i "$ca i else" $RootPath/opt/start
+			sudo sed -i "$ca i choice=1" $RootPath/opt/start
+			sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $RootPath/opt/start
+		fi
 	fi
 fi
 
