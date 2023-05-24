@@ -1,40 +1,44 @@
 clear
+RootPath=~/ubuntu
 rm -f Chinese-LANG-Pack.tar.xz
-echo -e " Box64Droid-chroot中文化补丁1..."
+echo -e " Box64Droid-chroot中文化补丁..."
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
 wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
 tar -xf Chinese-LANG-Pack.tar.xz
 rm -f Chinese-LANG-Pack.tar.xz
 echo -e " 移动补丁到ubuntu目录"
-sudo rm -rf ~/ubuntu/opt/Chinese-LANG-Pack
-sudo mv -f Chinese-LANG-Pack ~/ubuntu/opt/
+sudo rm -rf $RootPath/opt/Chinese-LANG-Pack
+sudo mv -f Chinese-LANG-Pack $RootPath/opt/
 echo -e " 复制字体文件"
-sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc ~/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
-sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf ~/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
-sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/root/wine/share/wine/fonts/SimSun.ttc
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/root/wine/share/wine/fonts/PMingLiU-TW.ttf
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/locale-archive-cn $RootPath/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
-sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' ~/ubuntu/root/.bashrc
+sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $RootPath/root/.bashrc
 echo -e " 替换TFM为中文版"
-sudo cp -f ~/ubuntu/opt/Chinese-LANG-Pack/TFM.exe ~/ubuntu/opt/TFM.exe
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/TFM.exe $RootPath/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项" 
-sudo cp -rf ~/ubuntu/opt/Chinese-LANG-Pack/Shortcuts ~/ubuntu/opt
-sudo cp -rf ~/ubuntu/opt/Chinese-LANG-Pack/Shortcuts/调试工具 ~/ubuntu/root/.wine/drive_c/ProgramData/Microsoft/Windows/'Start Menu'
-sudo chmod o+rw ~/ubuntu/opt/tools/changewinever
-if sudo cat ~/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null
-then
-	echo -e " changewinever已更新，无需替换"
-else
-	echo -e " 下载changewinever替换文件"
-  wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/modifychangewinever &>/dev/null
-  echo -e " 更新changewinever"
-  sudo cp -f ~/ubuntu/opt/tools/changewinever ~/changewinever
-  sudo chmod o+rw ~/changewinever
-  printf "%s\n" "/WINEDLLOVERRIDES/r modifychangewinever" w | ed -s ~/changewinever
-  echo -e " 更新changewinever成功"
-  rm -f modifychangewinever
-  sudo chmod o-rw ~/changewinever
-  sudo mv -f ~/changewinever ~/ubuntu/opt/tools/changewinever 
+sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts $RootPath/opt
+sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts/调试工具 $RootPath/root/.wine/drive_c/ProgramData/Microsoft/Windows/'Start Menu'
+sudo chmod o+rw $RootPath/opt/tools/changewinever
+if sudo test -f "$RootPath/opt/tools/changewinever"; then
+	if sudo cat $RootPath/opt/tools/changewinever |grep 替换 > /dev/null;then
+		echo -e " changewinever已更新，无需替换"
+	else
+		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
+		for((i=1;i<=150;i++)); do
+		 if sudo cat $RootPath/opt/tools/changewinever|head -n $i|grep WINEDLLOVERRIDES > /dev/null; then
+			cd=$i
+			break
+		 fi
+		done 
+		sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
+		sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
+		sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/tools/changewinever
+		sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/tools/changewinever
+		sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/tools/changewinever
+		sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/tools/changewinever
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
@@ -42,55 +46,55 @@ chmod +x lang-root
 sudo mv -f lang-root  $PREFIX/bin/lang-root
 echo -e " 配置语言环境切换文件，以后在termux上运行lang-root即可切换语言环境"
 
-if sudo test -f "/data/data/com.termux/files/home/ubuntu/root/.wine/dosdevices/d:/run.bat"; then
+if sudo test -f "$RootPath/root/.wine/dosdevices/d:/run.bat"; then
 	echo -e " d盘已有启动文件，无需替换"
 else
 	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
 	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
 	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
-	sudo mv -f run.bat ~/ubuntu/root/.wine/dosdevices/d:/run.bat
+	sudo mv -f run.bat $RootPath/root/.wine/dosdevices/d:/run.bat
 fi	
 
-if sudo test -f "/data/data/com.termux/files/home/ubuntu/opt/start"; then
-	if sudo cat ~/ubuntu/opt/start |grep 自定义 > /dev/null;then
+if sudo test -f "$RootPath/opt/start"; then
+	if sudo cat $RootPath/opt/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
 		echo -e " 修改start文件"
 		for((i=1;i<=30;i++)); do
-		 if sudo cat ~/ubuntu/opt/start|head -n $i|grep TFM > /dev/null; then
+		 if sudo cat $RootPath/opt/start|head -n $i|grep TFM > /dev/null; then
 			cc=$i
 			break
 		 fi
 		done 
-		sudo sed -i "$cc a fi" ~/ubuntu/opt/start
-		sudo sed -i "$cc i else" ~/ubuntu/opt/start
-		sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" ~/ubuntu/opt/start
-		sudo sed -i "$cc i echo -e "\ 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" ~/ubuntu/opt/start
-		sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" ~/ubuntu/opt/start
+		sudo sed -i "$cc a fi" $RootPath/opt/start
+		sudo sed -i "$cc i else" $RootPath/opt/start
+		sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $RootPath/opt/start
+		sudo sed -i "$cc i echo -e "\ 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" $RootPath/opt/start
+		sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $RootPath/opt/start
 		
 		for((i=1;i<=30;i++)); do
-		 if sudo cat ~/ubuntu/opt/start|head -n $i|grep read\ res > /dev/null; then
+		 if sudo cat $RootPath/opt/start|head -n $i|grep read\ res > /dev/null; then
 			cb=$i
 			break
 		 fi
 		done 
-		sudo sed -i "$cb a fi" ~/ubuntu/opt/start
-		sudo sed -i "$cb a echo "\$res">/opt/resolution" ~/ubuntu/opt/start
-		sudo sed -i "$cb i else" ~/ubuntu/opt/start
-		sudo sed -i "$cb i res=\$(cat /opt/resolution)" ~/ubuntu/opt/start
-		sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" ~/ubuntu/opt/start
+		sudo sed -i "$cb a fi" $RootPath/opt/start
+		sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
+		sudo sed -i "$cb i else" $RootPath/opt/start
+		sudo sed -i "$cb i res=\$(cat /opt/resolution)" $RootPath/opt/start
+		sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" $RootPath/opt/start
 
 
 		for((i=1;i<=30;i++)); do
-		 if sudo cat ~/ubuntu/opt/start|head -n $i|grep read\ choice > /dev/null; then
+		 if sudo cat $RootPath/opt/start|head -n $i|grep read\ choice > /dev/null; then
 			ca=$i
 			break
 		 fi
 		done 
-		sudo sed -i "$ca a fi" ~/ubuntu/opt/start
-		sudo sed -i "$ca i else" ~/ubuntu/opt/start
-		sudo sed -i "$ca i choice=1" ~/ubuntu/opt/start
-		sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" ~/ubuntu/opt/start
+		sudo sed -i "$ca a fi" $RootPath/opt/start
+		sudo sed -i "$ca i else" $RootPath/opt/start
+		sudo sed -i "$ca i choice=1" $RootPath/opt/start
+		sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $RootPath/opt/start
 	fi
 fi
 
@@ -100,9 +104,9 @@ if [ -f "$PREFIX/bin/start-box-root" ]; then
 	else
 		cp -f $PREFIX/bin/start-box-root $PREFIX/bin/cbox
 		echo -e " 修改start-box-root文件，正确启动后，以后可用cbox进行快捷启动"
-		sed -i "2isudo rm -f \~/ubuntu/opt/resolution" $PREFIX/bin/start-box-root
-		sed -i "2isudo rm -f \~/ubuntu/opt/quickstart" $PREFIX/bin/start-box-root
-		sed -i "2isudo touch ~/ubuntu/opt/quickstart"  $PREFIX/bin/cbox
+		sed -i "2isudo rm -f \$RootPath/opt/resolution" $PREFIX/bin/start-box-root
+		sed -i "2isudo rm -f \$RootPath/opt/quickstart" $PREFIX/bin/start-box-root
+		sed -i "2isudo touch $RootPath/opt/quickstart"  $PREFIX/bin/cbox
 	fi
 fi
 
