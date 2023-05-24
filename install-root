@@ -39,6 +39,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 		sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/tools/changewinever
 		sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/tools/changewinever
 		sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/tools/changewinever
+	fi
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
