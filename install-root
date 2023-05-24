@@ -28,7 +28,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 	else
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=0
-		for((i=50;i<=150;i++)); do
+		for((i=60;i<=150;i++)); do
 		 if sudo cat $RootPath/opt/tools/changewinever|head -n $i|grep WINEDLLOVERRIDES > /dev/null; then
 			cd=$i
 			break
