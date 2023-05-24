@@ -28,7 +28,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 	else
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=0
-		cd=$(awk '/WINEDLLOVERRIDES/{print NR}' bashrc|head -n 1)
+		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' bashrc|head -n 1)
 		if [ $cd -ne 0 ]; then
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
@@ -62,7 +62,7 @@ if sudo test -f "$RootPath/opt/start"; then
 		cb=0
 		cc=0
 		echo -e " 修改start文件"
-		cc=$(awk '/TFM/{print NR}' bashrc|head -n 1)
+		cc=$(sudo awk '/TFM/{print NR}' bashrc|head -n 1)
 		if [ $cc -ne 0 ]; then
 			sudo sed -i "$cc a fi" $RootPath/opt/start
 			sudo sed -i "$cc i else" $RootPath/opt/start
@@ -71,7 +71,7 @@ if sudo test -f "$RootPath/opt/start"; then
 			sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $RootPath/opt/start
 		fi
 		cb=0
-		cb=$(awk '/read res/{print NR}' bashrc|head -n 1)
+		cb=$(sudo awk '/read res/{print NR}' bashrc|head -n 1)
 		if [ $cb -ne 0 ]; then
 			sudo sed -i "$cb a fi" $RootPath/opt/start
 			sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
@@ -79,7 +79,7 @@ if sudo test -f "$RootPath/opt/start"; then
 			sudo sed -i "$cb i res=\$(cat /opt/resolution)" $RootPath/opt/start
 			sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" $RootPath/opt/start
 		fi
-		ca=$(awk '/read choice/{print NR}' bashrc|head -n 1)
+		ca=$(sudo awk '/read choice/{print NR}' bashrc|head -n 1)
 		if [ $ca -ne 0 ]; then
 			sudo sed -i "$ca a fi" $RootPath/opt/start
 			sudo sed -i "$ca i else" $RootPath/opt/start
