@@ -29,13 +29,12 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=0
 		for((i=60;i<=150;i++)); do
-		 if sudo cat $RootPath/opt/tools/changewinever|head -n $i|grep WINEDLLOVERRIDES > /dev/null; then
-			cd=$i
-			break
-		 fi
-		if [ $a -ne 0 ]
-			if $cd
-			done 
+			if sudo cat $RootPath/opt/tools/changewinever|head -n $i|grep WINEDLLOVERRIDES > /dev/null; then
+				cd=$i
+				break
+			fi
+		fi
+		if [ $a -ne 0 ]; then
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/tools/changewinever
