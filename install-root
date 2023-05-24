@@ -28,7 +28,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 	else
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=0
-		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		cd=$(awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
 		echo $cd
 		if [ $cd -ne 0 ]; then
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
