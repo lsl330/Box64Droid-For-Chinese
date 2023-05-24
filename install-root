@@ -29,7 +29,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
 		echo $cd
-		if [ $cd -ne 0 ]; then
+		if [ $cd -gt 0 ]; then
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a echo -e "替换TFM为中文版"" $RootPath/opt/tools/changewinever
 			sudo sed -i "$cd a cp -f /root/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/tools/changewinever
@@ -58,12 +58,9 @@ if sudo test -f "$RootPath/opt/start"; then
 	if sudo cat $RootPath/opt/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
-		ca=0
-		cb=0
-		cc=0
 		echo -e " 修改start文件"
 		cc=$(sudo awk '/TFM/{print NR}' $RootPath/opt/start|head -n 1)
-		if [ $cc -ne 0 ]; then
+		if [ $cc -gt 0 ]; then
 			sudo sed -i "$cc a fi" $RootPath/opt/start
 			sudo sed -i "$cc i else" $RootPath/opt/start
 			sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $RootPath/opt/start
@@ -72,7 +69,7 @@ if sudo test -f "$RootPath/opt/start"; then
 		fi
 		cb=0
 		cb=$(sudo awk '/read res/{print NR}' $RootPath/opt/start|head -n 1)
-		if [ $cb -ne 0 ]; then
+		if [ $cb -gt 0 ]; then
 			sudo sed -i "$cb a fi" $RootPath/opt/start
 			sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
 			sudo sed -i "$cb i else" $RootPath/opt/start
@@ -80,7 +77,7 @@ if sudo test -f "$RootPath/opt/start"; then
 			sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" $RootPath/opt/start
 		fi
 		ca=$(sudo awk '/read choice/{print NR}' $RootPath/opt/start|head -n 1)
-		if [ $ca -ne 0 ]; then
+		if [ $ca -gt 0 ]; then
 			sudo sed -i "$ca a fi" $RootPath/opt/start
 			sudo sed -i "$ca i else" $RootPath/opt/start
 			sudo sed -i "$ca i choice=1" $RootPath/opt/start
