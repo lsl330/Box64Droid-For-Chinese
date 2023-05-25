@@ -27,8 +27,6 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
 		cd=$(awk '/WINEDLLOVERRIDES/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever|head -n 1)
 		if [ $cd -gt 0 ]; then
-			sed -i "$cd a cp -f /opy/Chinese-LANG-Pack/TFM.exe /opt/TFM.exe" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
-			sed -i "$cd a echo -e "替换TFM为中文版"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
