@@ -43,7 +43,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 		if [ $wa -gt 0 ]; then
 			sed -i "$wa a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wa a mkdir /sdcard/Download/wineversion" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
-			sed -i "$wa a if [! -d "/sdcard/Download/wineversion" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
+			sed -i "$wa a if [ ! -d "/sdcard/Download/wineversion" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi
 		wb=$(awk '/amd64.tar.xz/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever|head -n 1)
 		if [ $wb -gt 0 ]; then
@@ -56,7 +56,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$wb i tar -xf wine-\$ver-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
 			sed -i "$wb i cp -f /sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz wine-\$ver-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wb i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
-			sed -i "$wb i if [! -f "/sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
+			sed -i "$wb i if [ -f "/sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
 			sed -i "$wb i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi
 		wc=$(awk '/staging-amd64.tar.xz/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever|head -n 1)
@@ -70,7 +70,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$wc i tar -xf wine-\$ver-staging-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
 			sed -i "$wc i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz wine-\$ver-staging-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wc i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
-			sed -i "$wc i if [! -f "/sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
+			sed -i "$wc i if [ -f "/sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
 			sed -i "$wc i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			fi
 
@@ -85,7 +85,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$wd i tar -xf wine-\$ver-staging-tkg-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wd i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz wine-\$ver-staging-tkg-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wd i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
-			sed -i "$wd i if [! -f "/sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
+			sed -i "$wd i if [ -f "/sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
 			sed -i "$wd i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi
 		echo -e " changewinever修改完成，更新wine时先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新（暂不含proton）"
