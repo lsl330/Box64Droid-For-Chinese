@@ -35,7 +35,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 		fi
 	fi
 		if sudo cat $RootPath/opt/tools/changewinever |grep 更新 > /dev/null;then
-		echo -e " 更新wine版本时，先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
+		echo -e " 更新wine版本时，若downloads/wineversion文件夹中有离线文件，则使用离线文件进行更新"
 	else
 		echo -e " 修改changewinever，下载wine版本时会自动备份一份到downloads/wineversion文件夹"
 		wa=$(sudo awk '/read build/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
