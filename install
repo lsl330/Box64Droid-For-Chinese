@@ -1,6 +1,6 @@
 clear
 rm -f Chinese-LANG-Pack.tar.xz
-echo -e " Box64Droid中文化补丁..."
+echo -e " Box64Droid中文化补丁..." 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
 wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
@@ -34,7 +34,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 		fi
 	fi
 	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 更新 > /dev/null;then
-		echo -e " 更新wine版本时，先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
+		echo -e " 更新wine版本时，若downloads/wineversion文件夹中有离线文件，则使用离线文件进行更新"
 	else
 		echo -e " 修改changewinever，下载wine版本时会自动备份一份到downloads/wineversion文件夹"
 		wa=$(awk '/read build/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever|head -n 1)
