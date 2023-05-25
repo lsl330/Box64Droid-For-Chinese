@@ -30,7 +30,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
-			sed -i "$cd a echo -e "复制字体文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
+			sed -i "$cd a echo -e "替换字体文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi
 	fi
 	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 更新 > /dev/null;then
