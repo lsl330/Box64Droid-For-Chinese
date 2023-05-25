@@ -89,6 +89,40 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 			sudo sed -i "$wd i if [ -f "/sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" ]; then" $RootPath/opt/tools/changewinever	
 			sudo sed -i "$wd i echo "检测是否存在已下载wine文件"" $RootPath/opt/tools/changewinever
 		fi
+		wp=$(sudo cat $RootPath/opt/tools/changewinever |grep -oE 'wine-proton-[0-9a-zA-Z.-]+-amd64'|head -n 1)
+		we=$(sudo awk '/wine-proton/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		if [ $we -gt 0 ]; then
+			sudo sed -i "$we a cp -f $wp.tar.xz /sdcard/Download/wineversion/\$wp.tar.xz" $RootPath/opt/tools/changewinever
+			let we=we+2
+			sudo sed -i "$we a fi" $RootPath/opt/tools/changewinever
+			let we=we-3
+			sudo sed -i "$we i else" $RootPath/opt/tools/changewinever
+			sudo sed -i "$we i echo "解压完成，准备安装"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$we i tar -xf \$wp.tar.xz" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$we i cp -f /sdcard/Download/wineversion/\$wp.tar.xz \$wp.tar.xz" $RootPath/opt/tools/changewinever
+			sudo sed -i "$we i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$we i if [! -f "/sdcard/Download/wineversion/\$wp.tar.xz" ]; then" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$we i echo "检测是否存在已下载wine文件"" $RootPath/opt/tools/changewinever
+			sudo sed -i "$we i wp=$wp" $RootPath/opt/tools/changewinever
+		fi
+		
+		ge=$(sudo cat $RootPath/opt/tools/changewinever |grep -oE 'wine-lutris-GE-Proton[0-9a-zA-Z.-]+-x86_64'|head -n 1)
+		wf=$(sudo awk '/wine-proton/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		if [ $wf -gt 0 ]; then
+			sudo sed -i "$wf a cp -f $ge.tar.xz /sdcard/Download/wineversion/\$ge.tar.xz" $RootPath/opt/tools/changewinever
+			let wf=wf+2
+			sudo sed -i "$wf a fi" $RootPath/opt/tools/changewinever
+			let wf=wf-3
+			sudo sed -i "$wf i else" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wf i echo "解压完成，准备安装"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wf i tar -xf \$ge.tar.xz" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wf i cp -f /sdcard/Download/wineversion/\$ge.tar.xz \$ge.tar.xz" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wf i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wf i if [! -f "/sdcard/Download/wineversion/\$ge.tar.xz" ]; then" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wf i echo "检测是否存在已下载wine文件"" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wf i ge=$ge" $RootPath/opt/tools/changewinever
+		fi
+		
 		echo -e " changewinever修改完成，更新wine时先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新（暂不含proton）"
 	fi
 	
