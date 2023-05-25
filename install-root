@@ -36,6 +36,62 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 			sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/tools/changewinever
 		fi
 	fi
+		if sudo cat $RootPath/opt/tools/changewinever |grep 检测 > /dev/null;then
+		echo -e " 更新wine版本时，先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新（暂不含proton）"
+	else
+		echo -e " 修改changewinever，下载wine版本时会自动备份一份到downloads/wineversion文件夹（暂不含proton）"
+		wa=$(sudo awk '/read build/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		if [ $wa -gt 0 ]; then
+			sudo sed -i "$wa a fi" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wa a mkdir /sdcard/Download/wineversion" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wa a if [! -d "/sdcard/Download/wineversion" ]; then" $RootPath/opt/tools/changewinever
+		fi
+		wb=$(awk '/amd64.tar.xz/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		if [ $wb -gt 0 ]; then
+			sudo sed -i "$wb a cp -f wine-\$ver-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			let wb=wb+2
+			sudo sed -i "$wb a fi" $RootPath/opt/tools/changewinever
+			let wb=wb-3
+			sudo sed -i "$wb i else" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wb i echo "解压完成，准备安装"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wb i tar -xf wine-\$ver-amd64.tar.xz" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wb i cp -f /sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz wine-\$ver-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wb i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wb i if [! -f "/sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" ]; then" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wb i echo "检测是否存在已下载wine文件"" $RootPath/opt/tools/changewinever
+		fi
+		wc=$(sudo awk '/staging-amd64.tar.xz/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		if [ $wc -gt 0 ]; then
+			sudo sed -i "$wc a cp -f wine-\$ver-staging-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			let wc=wc+2
+			sudo sed -i "$wc a fi" $RootPath/opt/tools/changewinever
+			let wc=wc-3
+			sudo sed -i "$wc i else" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wc i echo "解压完成，准备安装"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wc i tar -xf wine-\$ver-staging-amd64.tar.xz" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wc i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz wine-\$ver-staging-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wc i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wc i if [! -f "/sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz" ]; then" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wc i echo "检测是否存在已下载wine文件"" $RootPath/opt/tools/changewinever
+			fi
+
+		wd=$(sudo awk '/staging-tkg-amd64.tar.xz/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		if [ $wd -gt 0 ]; then
+			sudo sed -i "$wd a cp -f wine-\$ver-staging-tkg-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			let wd=wd+2
+			sudo sed -i "$wd a fi" $RootPath/opt/tools/changewinever
+			let wd=wd-3
+			sudo sed -i "$wd i else" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wd i echo "解压完成，准备安装"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wd i tar -xf wine-\$ver-staging-tkg-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wd i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz wine-\$ver-staging-tkg-amd64.tar.xz" $RootPath/opt/tools/changewinever
+			sudo sed -i "$wd i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wd i if [! -f "/sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" ]; then" $RootPath/opt/tools/changewinever	
+			sudo sed -i "$wd i echo "检测是否存在已下载wine文件"" $RootPath/opt/tools/changewinever
+		fi
+		echo -e " changewinever修改完成，更新wine时先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新（暂不含proton）"
+	fi
+	
 fi
 echo -e " 下载语言环境切换文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
