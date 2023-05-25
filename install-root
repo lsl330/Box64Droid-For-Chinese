@@ -22,7 +22,7 @@ echo -e " 起点位置添加快捷启动项"
 sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts $RootPath/opt
 sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts/调试工具 $RootPath/root/.wine/drive_c/ProgramData/Microsoft/Windows/'Start Menu'
 if sudo test -f "$RootPath/opt/tools/changewinever"; then
-	if sudo cat $RootPath/opt/tools/changewinever |grep 替换 > /dev/null;then
+	if sudo cat $RootPath/opt/tools/changewinever |grep 复制 > /dev/null;then
 		echo -e " changewinever已更新，无需替换"
 	else
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
