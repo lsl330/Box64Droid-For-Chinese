@@ -139,7 +139,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 		echo -e " start已更新，无需更改"
 	else
 		echo -e " 修改start文件"
-		cc=$(sudo awk '/TFM/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
+		cc=$(awk '/TFM/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
 		if [ $cc -gt 0 ]; then
 			sed -i "$cc a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cc i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
@@ -148,7 +148,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 			sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		fi
 		
-		cb=$(sudo awk '/read res/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
+		cb=$(awk '/read res/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
 		if [ $cb -gt 0 ]; then		
 			sed -i "$cb a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb a echo "\$res">/opt/resolution" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
@@ -156,7 +156,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 			sed -i "$cb i res=\$(cat /opt/resolution)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i if [ -f "/opt/resolution" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		fi
-		ca=$(sudo awk '/read choice/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
+		ca=$(awk '/read choice/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
 		if [ $ca -gt 0 ]; then
 			sed -i "$ca a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$ca i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
