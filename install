@@ -82,7 +82,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			let wd=wd-3
 			sed -i "$wd i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wd i echo "解压完成，准备安装"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
-			sed -i "$wd i tar -xf wine-\$ver-staging-tkg-amd64.tar.xz" hangewinever	
+			sed -i "$wd i tar -xf wine-\$ver-staging-tkg-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wd i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz wine-\$ver-staging-tkg-amd64.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$wd i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
 			sed -i "$wd i if [! -f "/sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever	
