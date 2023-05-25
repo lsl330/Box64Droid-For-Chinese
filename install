@@ -21,7 +21,7 @@ echo -e " 起点位置添加快捷启动项"
 cp -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/Shortcuts $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt
 cp -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Shortcuts/*  "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu"
 if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever" ]; then
-	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 替换 > /dev/null;then
+	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 复制 > /dev/null;then
 		echo -e " changewinever已更新，无需替换"
 	else
 		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
@@ -30,7 +30,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
-			sed -i "$cd a echo -e "替换字体文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
+			sed -i "$cd a echo -e "复制字体文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi
 	fi
 	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 更新 > /dev/null;then
