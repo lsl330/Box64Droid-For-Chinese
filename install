@@ -33,8 +33,8 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$cd a echo -e "复制字体文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi
 	fi
-	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 检测 > /dev/null;then
-		echo -e " 更新wine版本时，先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新（暂不含proton）"
+	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 更新 > /dev/null;then
+		echo -e " 更新wine版本时，先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
 	else
 		echo -e " 修改changewinever，下载wine版本时会自动备份一份到downloads/wineversion文件夹（暂不含proton）"
 		wa=$(awk '/read build/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever|head -n 1)
@@ -103,7 +103,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 			sed -i "$we i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 			sed -i "$we i wp=$wp" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
 		fi			
-		echo -e " changewinever修改完成，更新wine时先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新（暂不含proton）"
+		echo -e " changewinever修改完成，更新wine时先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
 	fi
 	
 fi
