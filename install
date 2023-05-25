@@ -36,7 +36,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewi
 	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever |grep 更新 > /dev/null;then
 		echo -e " 更新wine版本时，先检测downloads/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
 	else
-		echo -e " 修改changewinever，下载wine版本时会自动备份一份到downloads/wineversion文件夹（暂不含proton）"
+		echo -e " 修改changewinever，下载wine版本时会自动备份一份到downloads/wineversion文件夹"
 		wa=$(awk '/read build/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever|head -n 1)
 		if [ $wa -gt 0 ]; then
 			sed -i "$wa a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/changewinever
