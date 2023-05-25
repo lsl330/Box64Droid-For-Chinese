@@ -46,7 +46,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 			sudo sed -i "$wa a mkdir /sdcard/Download/wineversion" $RootPath/opt/tools/changewinever
 			sudo sed -i "$wa a if [! -d "/sdcard/Download/wineversion" ]; then" $RootPath/opt/tools/changewinever
 		fi
-		wb=$(awk '/amd64.tar.xz/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
+		wb=$(sudo awk '/amd64.tar.xz/{print NR}' $RootPath/opt/tools/changewinever|head -n 1)
 		if [ $wb -gt 0 ]; then
 			sudo sed -i "$wb a cp -f wine-\$ver-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" $RootPath/opt/tools/changewinever
 			let wb=wb+2
