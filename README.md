@@ -14,9 +14,9 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.c
  $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.conf
  
 若此前已经安装过中文补丁，需运行以下指令
-(proot版）curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/start  && cp -f start $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+(proot版）curl -o start https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/start  && cp -f start $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 (chroot版）
-curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/start  && sudo cp -f start ~/ubuntu/opt/start
+curl -o start https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/start  && sudo cp -f start ~/ubuntu/opt/start
 
 5月23更新
 添加快捷启动，安装中文补丁后，可在termux输入pbox，vbox，cbox进行快捷启动(分别对应start-box，start-box-virgl，start-box-root)
