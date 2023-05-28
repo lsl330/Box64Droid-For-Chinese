@@ -1,0 +1,105 @@
+#!/bin/bash
+clear
+echo "Select, what need run:"
+echo "1) Box64"
+echo "2) Change Wine version"
+echo "3) Update Box86 and Box64"
+echo "4) Recreate Wine prefix"
+echo "5) Update system"
+echo "6) Winetricks GUI"
+echo "7) Exit from chroot"
+echo ""
+if [ -f /opt/quickstart ]; then
+choice=1
+else
+read choice
+fi
+if [ $choice = "1" ]
+then
+        clear
+	echo "Type need resolution"
+if [ -f /sdcard/Box64Droid/resolution.conf ]; then
+res=$(cat /sdcard/Box64Droid/resolution.conf)
+elif [ -f /opt/resolution ]; then
+res=$(cat /opt/resolution)
+else
+	read res
+echo $res>/opt/resolution
+fi
+	clear
+	echo -e "\033[0;32m Box64Droid by Ilya114, Glory to Ukraine!"
+	echo -e "\033[0;33m Box64 + Wine will start now, if you want to stop Box64, type \033[0;36m'1'\033[0;33m in the terminal and press enter."
+if [ -f /root/.wine/dosdevices/d:/run.bat ]; then
+echo -e  运行自定义run.bat，文件存放在D盘根目录，可自行修改
+WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &
+else
+	WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /opt/TFM &>/dev/null &
+fi
+elif [ $choice = "2" ]
+then
+	clear
+	. /opt/tools/changewinever
+        . /opt/start
+elif [ $choice = "3" ]
+then
+	clear
+	echo "Updating Box86 and Box64..."
+	echo ""
+        cd ~/
+	rm -r ~/box86 ~/box64
+	git clone https://github.com/ptitSeb/box86 && git clone https://github.com/ptitSeb/box64
+	cd box86
+	mkdir build; cd build; cmake .. -DARM64=1 -DARM_DYNAREC=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBAD_SIGNAL=ON; make -j8; make install
+	cd ~/box64
+	mkdir build; cd build; cmake .. -DARM_DYNAREC=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBAD_SIGNAL=ON; make -j8; make install
+	. /opt/start
+elif [ $choice = "4" ]
+then
+        clear
+	echo "Removing current Wine prefix..."
+	rm -r ~/.wine
+	echo "Creating new Wine prefix..."
+        WINEDLLOVERRIDES=mscoree=d box64 wineboot &>/dev/null
+        echo "Installing DXVK and vkd3d-proton..."
+        box64 wine z:/opt/Resources64/DXVK2.2/DXVK2.2.bat &>/dev/null
+        box64 wine reg add "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v d3d9 /d native /f &>/dev/null
+        box64 wine reg add "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v d3d10core /d native /f &>/dev/null
+        box64 wine reg add "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v d3d11 /d native /f &>/dev/null
+        box64 wine reg add "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v dxgi /d native /f &>/dev/null
+        rm ~/.wine/drive_c/windows/system32/d3d12.dll
+        rm ~/.wine/drive_c/windows/syswow64/d3d12.dll
+        cp /opt/Resources64/vkd3d-proton2.8/d3d12.dll ~/.wine/drive_c/windows/system32
+        cp /opt/Resources/vkd3d-proton2.8/d3d12.dll ~/.wine/drive_c/windows/syswow64
+        box64 wine reg add "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v d3d12 /d native /f &>/dev/null
+        echo "Copying shortucts..."
+        cp -r /opt/Shortcuts/* "/root/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu" 
+        ln -s /sdcard/Download /root/.wine/dosdevices/d:
+        echo "New Wine prefix configured, back to start menu..."
+        . /opt/start
+elif [ $choice = "5" ]
+then
+	clear
+	echo "Updating system..."
+	echo ""
+	apt-get update && apt-get upgrade -y && apt clean
+	echo "System updated"
+	. /opt/start
+elif [ $choice = "6" ]
+then
+	clear
+        echo "Winetricks GUI will start now, go to Termux-x11 and wait"
+        box64 winetricks &>/dev/null
+        . /opt/start
+elif [ $choice = "7" ]
+then
+	exit
+else
+	echo "Unknown parameter"
+	. /opt/start
+fi
+
+read -p "" yn
+case $yn in
+	[1]* ) echo " Stopping Wine...";box64 wineserver -k &>/dev/null;echo"";echo " Exiting from Box64Droid... ";echo "";exit
+esac
+
