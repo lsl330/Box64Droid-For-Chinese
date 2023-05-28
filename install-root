@@ -159,7 +159,9 @@ if sudo test -f "$RootPath/opt/start"; then
 			sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
 			sudo sed -i "$cb i else" $RootPath/opt/start
 			sudo sed -i "$cb i res=\$(cat /opt/resolution)" $RootPath/opt/start
-			sudo sed -i "$cb i if [ -f "/opt/resolution" ]; then" $RootPath/opt/start
+			sudo sed -i "$cb i elif [ -f "/opt/resolution" ]; then" $RootPath/opt/start 
+   sudo sed -i "$cb i res=\$(cat /sdcard/Box64Droid/resolution.conf)" $RootPath/opt/start 
+   sudo sed -i "$cb i if [ -f "/sdcard/Box64Droid/resolution.conf" ]; then" $RootPath/opt/start
 		fi
 		ca=$(sudo awk '/read choice/{print NR}' $RootPath/opt/start|head -n 1)
 		if [ $ca -gt 0 ]; then
