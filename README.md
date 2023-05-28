@@ -24,4 +24,4 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.c
 更改changewinever文件，在更新wine时，先检测在download/wineversions文件夹中是否存在离线版本。若存在，直接使用离线版本进行更新。
 正常下载更新时，同样会备份一份到download/wineversions文件夹，以后再更新无需重新下载。
 同样，下载不完全导致更新失败，则需手动删除download/wineversions的对应文件。
-changewinever中若存在“复制”和“更新”字样，则会跳过对changewinever的更新（方便制作整合的人员使用和识别）
+changewinever中若存在“复制”和“安装”字样，则会跳过对changewinever的更新（方便制作整合的人员使用和识别）
