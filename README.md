@@ -25,3 +25,10 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/etc/security/limits.c
 正常下载更新时，同样会备份一份到download/wineversions文件夹，以后再更新无需重新下载。
 同样，下载不完全导致更新失败，则需手动删除download/wineversions的对应文件。
 changewinever中若存在“复制”和“安装”字样，则会跳过对changewinever的更新（方便制作整合的人员使用和识别）
+
+5月28更新
+新增定制版termux-x11（由本人进行汉化，java部分由补补23456完成），定制版termux添加以下功能：
+1、termux-x11全汉化
+2、termux-x11添加全屏居中功能（预设分辨率或自定义分辨率时生效）
+3、termux-x11设定的分辨率，输出到手机存储\Box64Droid\resolution.txt（需手动赋予termux-x11存储权限,变更分辨率需设置分辨率后返回初始界面才会生效）
+4、快捷启动对定制版termux-x11进行优化，若存在手机存储\Box64Droid\resolution.txt文件，启动box64droid时无需再次手动输入分辨率
