@@ -34,7 +34,7 @@ if sudo test -f "$RootPath/opt/tools/changewinever"; then
 			sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/tools/changewinever
 		fi
 	fi
-		if sudo cat $RootPath/opt/tools/changewinever |grep 更新 > /dev/null;then
+		if sudo cat $RootPath/opt/tools/changewinever |grep 安装 > /dev/null;then
 		echo -e " 更新wine版本时，若download/wineversion文件夹中有离线文件，则使用离线文件进行更新"
 	else
 		echo -e " 修改changewinever，下载wine版本时会自动备份一份到download/wineversion文件夹"
