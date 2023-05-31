@@ -150,7 +150,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 		
 		cb=$(awk '/read res/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
 		if [ $cb -gt 0 ]; then
-			sed -i "$cb a ib='box64 wine explorer /desktop=shell,$res /opt/InputBridge/Installer/ib.exe'" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+			sed -i "$cb a ib='box64 wine explorer /desktop=shell,\$res /opt/InputBridge/Installer/ib.exe'" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb a echo "\$res">/opt/resolution" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
