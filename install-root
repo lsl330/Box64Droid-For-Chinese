@@ -149,12 +149,13 @@ if sudo test -f "$RootPath/opt/start"; then
 		if [ $cc -gt 0 ]; then
 			sudo sed -i "$cc a fi" $RootPath/opt/start
 			sudo sed -i "$cc i else" $RootPath/opt/start
-			sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null &" $RootPath/opt/start
+			sudo sed -i "$cc i WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,\$res /root/.wine/dosdevices/d:/run.bat &>/dev/null & \$ib &>/dev/null &" $RootPath/opt/start
 			sudo sed -i "$cc i echo -e "\ 运行自定义run.bat，文件存放在D盘根目录，可自行修改"" $RootPath/opt/start
 			sudo sed -i "$cc i if [ -f "/root/.wine/dosdevices/d:/run.bat" ]; then" $RootPath/opt/start
 		fi
 		cb=$(sudo awk '/read res/{print NR}' $RootPath/opt/start|head -n 1)
 		if [ $cb -gt 0 ]; then
+			sudo sed -i "$cb a ib='box64 wine explorer /desktop=shell,\$res /opt/InputBridge/Installer/ib.exe'" $RootPath/opt/start
 			sudo sed -i "$cb a fi" $RootPath/opt/start
 			sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
 			sudo sed -i "$cb i else" $RootPath/opt/start
