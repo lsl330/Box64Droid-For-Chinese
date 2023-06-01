@@ -37,3 +37,6 @@ changewinever中若存在“复制”和“安装”字样，则会跳过对chan
 <p>2、termux-x11添加全屏居中功能（预设分辨率或自定义分辨率时生效）</p>
 <p>3、termux-x11设定的分辨率，输出到手机存储\Download\resolution.conf（需手动赋予termux-x11存储权限,变更分辨率需设置分辨率后返回初始界面才会生效）</p>
 <p>4、快捷启动对定制版termux-x11进行优化，若存在手机存储\Download\resolution.conf文件，启动box64droid时无需再次手动输入分辨率</p>
+
+6月1日更新
+鉴于box4droid现在已经处于可用状态(另一个box版本，非box64droid)，因此，将termux-11的分辨率文件resolution.conf输出目录从Box64Droid文件夹改成Download文件夹。方便对其他版本的适配
