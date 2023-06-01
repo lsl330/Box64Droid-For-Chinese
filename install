@@ -159,7 +159,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 			sed -i "$cb i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i res=\$(cat /opt/resolution)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i elif [ -f "/opt/resolution" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-			sed -i "$cb i res=\$(cat /sdcard/Box64Droid/resolution.conf)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+			sed -i "$cb i res=\$(cat /sdcard/Download/resolution.conf)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i if [ -f "/sdcard/Download/resolution.conf" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i ln -s /mnt/drive_e /root/.wine/dosdevices/e:" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
