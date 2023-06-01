@@ -184,8 +184,6 @@ if [ -f "$PREFIX/bin/start-box-root" ]; then
 	if cat $PREFIX/bin/start-box-root |grep resolution > /dev/null; then
 		echo -e " start-box-root已更新，无需更改"
 	else
-	
-	sed -i "$a hello" start-box
 		sed -i "6isudo mount --bind ~/drive_e/chroot \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/start-box-root
 		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/start-box-root
 		cp -f $PREFIX/bin/start-box-root $PREFIX/bin/cbox
