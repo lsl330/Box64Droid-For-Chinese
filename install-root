@@ -183,10 +183,10 @@ if [ -f "$PREFIX/bin/start-box-root" ]; then
 	if cat $PREFIX/bin/start-box-root |grep resolution > /dev/null; then
 		echo -e " start-box-root已更新，无需更改"
 	else
+echo -e " 修改start-box-root文件，正确启动后，以后可用cbox进行快捷启动"
 		sed -i "8isudo mount --bind ~/drive_e \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/start-box-root
 		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/start-box-root
 		cp -f $PREFIX/bin/start-box-root $PREFIX/bin/cbox
-		echo -e " 修改start-box-root文件，正确启动后，以后可用cbox进行快捷启动"
 		sed -i "2isudo rm -f ~/ubuntu/opt/resolution" $PREFIX/bin/start-box-root
 		sed -i "2isudo rm -f ~/ubuntu/opt/quickstart" $PREFIX/bin/start-box-root
 		sed -i "2isudo touch ~/ubuntu/opt/quickstart"  $PREFIX/bin/cbox
