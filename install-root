@@ -1,6 +1,9 @@
 clear
 RootPath=~/ubuntu
 rm -f Chinese-LANG-Pack.tar.xz
+mkdir ~/drive_e &>/dev/null
+mkdir ~/drive_e/chroot &>/dev/null
+sudo mkdir $RootPath/mnt/drive_e &>/dev/null
 echo -e " Box64Droid-chroot中文化补丁..." 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
@@ -162,7 +165,10 @@ if sudo test -f "$RootPath/opt/start"; then
 			sudo sed -i "$cb i res=\$(cat /opt/resolution)" $RootPath/opt/start
 			sudo sed -i "$cb i elif [ -f "/opt/resolution" ]; then" $RootPath/opt/start 
 			sudo sed -i "$cb i res=\$(cat /sdcard/Download/resolution.conf)" $RootPath/opt/start 
-			sudo sed -i "$cb i if [ -f "/sdcard/Box64Droid/resolution.conf" ]; then" $RootPath/opt/start
+			sudo sed -i "$cb i if [ -f "/sdcard/Download/resolution.conf" ]; then" $RootPath/opt/start
+			sudo sed -i "$cb i fi" $RootPath/opt/start
+			sudo sed -i "$cb i ln -s /mnt/drive_e /root/.wine/dosdevices/e:" $RootPath/opt/start
+			sudo sed -i "$cb i if [ ! -e /root/.wine/dosdevices/e: ]; then" $RootPath/opt/start
 		fi
 		ca=$(sudo awk '/read choice/{print NR}' $RootPath/opt/start|head -n 1)
 		if [ $ca -gt 0 ]; then
@@ -178,6 +184,10 @@ if [ -f "$PREFIX/bin/start-box-root" ]; then
 	if cat $PREFIX/bin/start-box-root |grep resolution > /dev/null; then
 		echo -e " start-box-root已更新，无需更改"
 	else
+	
+	sed -i "$a hello" start-box
+		sed -i "6isudo mount --bind ~/drive_e/chroot \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/start-box-root
+		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/start-box-root
 		cp -f $PREFIX/bin/start-box-root $PREFIX/bin/cbox
 		echo -e " 修改start-box-root文件，正确启动后，以后可用cbox进行快捷启动"
 		sed -i "2isudo rm -f ~/ubuntu/opt/resolution" $PREFIX/bin/start-box-root
