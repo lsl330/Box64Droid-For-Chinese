@@ -1,5 +1,8 @@
 clear
 rm -f Chinese-LANG-Pack.tar.xz
+mkdir ~/drive_e &>/dev/null
+mkdir ~/drive_e/proot &>/dev/null
+mkdir $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/mnt/drive_e &>/dev/null
 echo -e " Box64Droid中文化补丁...1" 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 补丁下载中"
@@ -158,6 +161,9 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
 			sed -i "$cb i elif [ -f "/opt/resolution" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i res=\$(cat /sdcard/Box64Droid/resolution.conf)" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 			sed -i "$cb i if [ -f "/sdcard/Download/resolution.conf" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+			sed -i "$cb i fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+			sed -i "$cb i ln -s /mnt/drive_e /root/.wine/dosdevices/e:" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+			sed -i "$cb i if [ ! -e /root/.wine/dosdevices/e: ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
 		fi
 		ca=$(awk '/read choice/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
 		if [ $ca -gt 0 ]; then
@@ -172,6 +178,7 @@ if [ -f "$PREFIX/bin/start-box" ]; then
 	if cat $PREFIX/bin/start-box |grep opt/resolution > /dev/null; then
 		echo -e " start-box已更新，无需更改"
 	else
+		sed -i 's/sdcard:\/sdcard/sdcard:\/sdcard\ --bind\ ~\/drive_e\/proot:\/mnt\/drive_e/g' $PREFIX/bin/start-box
 		cp -f $PREFIX/bin/start-box $PREFIX/bin/pbox
 		echo -e " 修改start-box文件，正确启动后，以后可用pbox进行快捷启动"
 		sed -i "2irm -f \$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/resolution" $PREFIX/bin/start-box
