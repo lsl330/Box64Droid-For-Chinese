@@ -1,0 +1,130 @@
+#! /bin/bash
+
+clear
+
+if [ -e $WINEPREFIX/drive_c ]; then
+echo " Checking container integrity..."
+echo ""
+echo -e "\033[0;92m Done." & sleep 1
+else
+echo " Checking container integrity..."
+echo ""
+echo -e "\033[0;91m Failed.\033[0m"
+echo ""
+echo -e "\033[0;91m Please check the Containers menu to see if the selected container exists or is corrupted.\033[0m" & sleep 5
+.  /opt/scripts/selectedPrefix
+fi
+
+if [[ "$(cat $WINEPREFIX/method)" == "chroot" ]] && [[ $SCRIPT == "proot" ]]; then
+echo ""
+echo -e "\033[0;91m It has been detected that the selected container was created using Chroot, please select a container that was created with Proot.\033[0m" & sleep 5
+echo ""
+. /opt/scripts/selectedPrefix
+fi
+
+if [[ "$(cat $WINEPREFIX/method)" == "chroot" ]] && [[ $SCRIPT == "prootdistro" ]]; then
+echo ""
+echo -e "\033[0;91m It has been detected that the selected container was created using Chroot, please select a container that was created with Proot.\033[0m" & sleep 5
+echo ""
+. /opt/scripts/selectedPrefix
+fi
+
+if [[ "$(cat $WINEPREFIX/method)" == "proot" ]] && [[ $SCRIPT == "chroot" ]]; then
+echo ""
+echo -e "\033[0;91m It has been detected that the selected container was created using Proot, please select a container that was created with Chroot.\033[0m" & sleep 5
+echo ""
+. /opt/scripts/selectedPrefix
+fi
+
+export folder='/sdcard/Box4Droid'
+
+if [ -e $folder ]
+then
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid already exists, ignoring"
+echo ""
+else
+    mkdir $folder
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid created. "
+echo ""
+fi
+
+if [ -e $folder/dxvk.conf ]
+then
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid/dxvk.conf already exists,ignoring ..."
+echo ""
+else
+    mkdir $folder/dxvk.conf
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid/dxvk.conf created."
+echo ""
+fi
+
+if [ -e $folder/Box86.conf ]
+then
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid/Box86.conf already exists,ignoring ..."
+echo ""
+else
+    mkdir $folder/Box86.conf
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid/Box86.conf created."
+echo ""
+fi
+
+if [ -e $folder/Box64.conf ]
+then
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid/Box86.conf already exists,ignoring ..."
+echo ""
+else
+    mkdir $folder/Box64.conf
+echo ""
+    echo " Folder /storage/emulated/0/Box4Droid/Box64.conf created."
+echo ""
+fi
+
+if [ -e $folder/Misc_options.conf ]
+then
+echo " Folder /storage/emulated/0/Box4Droid/Misc_options.conf/Misc_options.conf created."
+else
+    mkdir $folder/Misc_options.conf
+fi
+
+
+cp -n /opt/dxvk.conf $folder/dxvk.conf
+cp -n /opt/Box86.conf $folder/Box86.conf
+cp -n /opt/Box64.conf $folder/Box64.conf
+cp -n /opt/Misc_options.conf $folder/Misc_options.conf/Misc_options.conf
+
+
+
+. $folder/Box86.conf/Box86.conf
+. $folder/Box64.conf/Box64.conf
+. $folder/Misc_options.conf/Misc_options.conf
+
+
+echo ""
+echo ""
+echo " Loading preferences from configuration files, please wait..."
+echo ""
+
+if [ ! -e /root/.wine/dosdevices/e: ]; then
+ln -s /mnt/drive_e /root/.wine/dosdevices/e:
+fi
+
+if [ -f /sdcard/Download/resolution.conf ]; then
+res=$(cat /sdcard/Download/resolution.conf)
+elif [ -f /opt/resolution ]; then
+res=$(cat /opt/resolution)
+else
+	echo 请输入分辨率
+	read res
+echo $res>/opt/resolution
+fi
+
+DISPLAY=:1 $useCores box64 wine64 explorer /desktop=shell,$res /opt/TFM.exe &>/dev/null & $ib &>/dev/null &
+
+. /opt/killAll
