@@ -39,16 +39,21 @@ else
 	echo "root - sigpending 36784" >> $RootPath/etc/security/limits.conf
 fi
 echo -e " 下载box文件"
-wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/box-0.0.3 &>/dev/null
-chmod +x box-0.0.3
-mv -f box-0.0.3 $PREFIX/bin/box
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/box &>/dev/null
+chmod +x box
+mv -f box $PREFIX/bin/box
 echo -e " 下载init文件"
-wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/init-0.0.3 &>/dev/null
-chmod +x init-0.0.3
-mv -f init-0.0.3  $RootPath/opt/init
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/init &>/dev/null
+chmod +x init
+mv -f init  $RootPath/opt/init
 echo -e " 下载chroot.sh文件"
-wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/chroot.sh-0.0.3 &>/dev/null
-chmod +x chroot.sh-0.0.3
-mv -f chroot.sh-0.0.3  ~/Box4Droid/chroot.sh
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/chroot.sh &>/dev/null
+chmod +x chroot.sh
+mv -f chroot.sh  ~/Box4Droid/chroot.sh
+mv -f init  $RootPath/opt/init
+echo -e " 下载start-ubuntu.sh文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/start-ubuntu.sh &>/dev/null
+chmod +x start-ubuntu.sh
+mv -f start-ubuntu.sh  ~/Box4Droid/start-ubuntu.sh
 echo -e " 安装完成"
 rm -f install
