@@ -5,6 +5,7 @@ mkdir ~/drive_e &>/dev/null
 mkdir $RootPath/mnt/drive_e &>/dev/null
 echo -e " Box4Droid中文化补丁..." 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+echo -e " 请确保wine容器用户名为box4droid已达到最佳效果（客户名可在box选项3-7中查看和更改）"
 echo -e " 补丁下载中"
 wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
 tar -xf Chinese-LANG-Pack.tar.xz
@@ -37,13 +38,17 @@ else
 	echo "root - memlock 36784" >> $RootPath/etc/security/limits.conf
 	echo "root - sigpending 36784" >> $RootPath/etc/security/limits.conf
 fi
-if [ -f "$RootPath/opt/prefixes/box4droid/dosdevices/d:/run.bat" ]; then
-	echo -e " d盘已有启动文件，无需替换"
-else
-	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
-	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
-	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
-	mv -f run.bat $RootPath/root/.wine/dosdevices/d:/run.bat
-fi	
+echo -e " 下载box文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/box-0.0.3 &>/dev/null
+chmod +x box-0.0.3
+mv -f box-0.0.3 $PREFIX/bin/box
+echo -e " 下载init文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/init-0.0.3 &>/dev/null
+chmod +x init-0.0.3
+mv -f init-0.0.3  $RootPath/opt/init
+echo -e " 下载chroot.sh文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/init-0.0.3 &>/dev/null
+chmod +x chroot.sh-0.0.3
+mv -f chroot.sh-0.0.3  ~/Box4Droid/chroot.sh
 echo -e " 安装完成"
 rm -f install
