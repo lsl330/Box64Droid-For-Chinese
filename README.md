@@ -40,3 +40,6 @@ changewinever中若存在“复制”和“安装”字样，则会跳过对chan
 
 6月1日更新
 鉴于box4droid现在已经处于可用状态(另一个box版本，非box64droid)，因此，将termux-11的分辨率文件resolution.conf输出目录从Box64Droid文件夹改成Download文件夹。方便对其他版本的适配
+
+6月2日更新
+curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/install-0.0.3 && chmod +x install && ./install
