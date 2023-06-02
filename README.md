@@ -41,5 +41,10 @@ changewinever中若存在“复制”和“安装”字样，则会跳过对chan
 6月1日更新
 鉴于box4droid现在已经处于可用状态(另一个box版本，非box64droid)，因此，将termux-11的分辨率文件resolution.conf输出目录从Box64Droid文件夹改成Download文件夹。方便对其他版本的适配
 
-6月2日更新
-curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/install && chmod +x install && ./install
+6月2日更新一
+更新E盘，位置位于/data/data/com.termux/files/home/drive_e/，增加E盘的原因，是因为每次更新box64droid后，C盘和Z盘的空间都会重置，需要重新导入数据。
+因此增加E盘，作为日常存放游戏的目录。box64droid更新时，E盘的数据不会清除，更新后，只需重新打box64droid汉化补丁即可使用。
+
+6月2日更新二
+增加box4droid0.0.3版的简易中文补丁，可通过curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/install && chmod +x install && ./install进行安装
+box4droid中文补丁，同样添加了E盘，E盘的数据可以与box64droid共用
