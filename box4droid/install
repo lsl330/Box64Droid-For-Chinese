@@ -1,0 +1,49 @@
+clear
+RootPath=~/Box4Droid/ubuntu
+rm -f Chinese-LANG-Pack.tar.xz
+mkdir ~/drive_e &>/dev/null
+mkdir $RootPath/mnt/drive_e &>/dev/null
+echo -e " Box4Droid中文化补丁..." 
+echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+echo -e " 补丁下载中"
+wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+tar -xf Chinese-LANG-Pack.tar.xz
+rm -f Chinese-LANG-Pack.tar.xz
+echo -e " 移动补丁到ubuntu目录"
+rm -rf $RootPath/opt/Chinese-LANG-Pack
+mv -f Chinese-LANG-Pack $RootPath/opt/
+echo -e " 复制字体文件"
+cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/wines/current/share/wine/fonts/SimSun.ttc
+cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/wines/current/share/wine/fonts/PMingLiU-TW.ttf
+cp -f $RootPath/opt/Chinese-LANG-Pack/locale-archive-cn $RootPath/usr/lib/locale/locale-archive
+echo -e " 替换bashrc为中文环境"
+sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $RootPath/root/.bashrc
+echo -e " 替换TFM为中文版"
+cp -f $RootPath/opt/Chinese-LANG-Pack/TFM.exe $RootPath/opt/TFM.exe
+echo -e " 起点位置添加快捷启动项"
+cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts $RootPath/opt
+cp -rf $RootPath/opt/Shortcuts/*  "$RootPath/opt/prefixes/box4droid/drive_c/ProgramData/Microsoft/Windows/Start Menu"
+
+if cat $RootPath/etc/security/limits.conf |grep proot > /dev/null
+then
+	echo -e " 已打proot突破限制补丁"
+else
+	echo -e " 备份proot限制文件"
+	cp -f $RootPath/etc/security/limits.conf $RootPath/etc/security/limits.conf.bakup
+	echo -e " 突破proot连接数限制"
+	echo -e >> $RootPath/etc/security/limits.conf
+	echo "#unlock proot limit" >> $RootPath/etc/security/limits.conf
+	echo "root - nofile 24576" >> $RootPath/etc/security/limits.conf
+	echo "root - memlock 36784" >> $RootPath/etc/security/limits.conf
+	echo "root - sigpending 36784" >> $RootPath/etc/security/limits.conf
+fi
+if [ -f "$RootPath/opt/prefixes/box4droid/dosdevices/d:/run.bat" ]; then
+	echo -e " d盘已有启动文件，无需替换"
+else
+	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
+	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
+	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
+	mv -f run.bat $RootPath/root/.wine/dosdevices/d:/run.bat
+fi	
+echo -e " 安装完成"
+rm -f install
