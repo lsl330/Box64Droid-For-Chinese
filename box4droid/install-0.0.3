@@ -14,8 +14,8 @@ echo -e " 移动补丁到ubuntu目录"
 rm -rf $RootPath/opt/Chinese-LANG-Pack
 mv -f Chinese-LANG-Pack $RootPath/opt/
 echo -e " 复制字体文件"
-cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/wines/current/share/wine/fonts/SimSun.ttc
-cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/wines/current/share/wine/fonts/PMingLiU-TW.ttf
+cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/Wines/current/share/wine/fonts/SimSun.ttc
+cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/Wines/current/share/wine/fonts/PMingLiU-TW.ttf
 cp -f $RootPath/opt/Chinese-LANG-Pack/locale-archive-cn $RootPath/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $RootPath/root/.bashrc
@@ -47,7 +47,7 @@ wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4dr
 chmod +x init-0.0.3
 mv -f init-0.0.3  $RootPath/opt/init
 echo -e " 下载chroot.sh文件"
-wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/init-0.0.3 &>/dev/null
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/chroot.sh-0.0.3 &>/dev/null
 chmod +x chroot.sh-0.0.3
 mv -f chroot.sh-0.0.3  ~/Box4Droid/chroot.sh
 echo -e " 安装完成"
