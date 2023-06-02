@@ -50,7 +50,6 @@ echo -e " 下载chroot.sh文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/chroot.sh &>/dev/null
 chmod +x chroot.sh
 mv -f chroot.sh  ~/Box4Droid/chroot.sh
-mv -f init  $RootPath/opt/init
 echo -e " 下载start-ubuntu.sh文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/start-ubuntu.sh &>/dev/null
 chmod +x start-ubuntu.sh
