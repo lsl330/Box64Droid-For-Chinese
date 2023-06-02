@@ -47,4 +47,4 @@ changewinever中若存在“复制”和“安装”字样，则会跳过对chan
 
 6月2日更新二
 增加box4droid0.0.3版的简易中文补丁，可通过curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/install && chmod +x install && ./install进行安装
-box4droid中文补丁，同样添加了E盘，E盘的数据可以与box64droid共用
+<p>简易补丁特点：对定制版X11进行适配，只需要在x11中变更分辨率即可使用，添加中文支持，添加E盘，数据可以与box64droid共用，box64droid中更换wine版本，需要重新下载中文补丁进行安装</p>
