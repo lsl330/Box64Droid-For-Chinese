@@ -157,7 +157,7 @@ if sudo test -f "$RootPath/opt/start"; then
 		fi
 		cb=$(sudo awk '/read res/{print NR}' $RootPath/opt/start|head -n 1)
 		if [ $cb -gt 0 ]; then
-			sudo sed -i "$cb a ib='box64 wine explorer /desktop=shell,\$res /opt/InputBridge/Installer/ib.exe'" $RootPath/opt/start
+			sudo sed -i "$cb a ib='box64 wine explorer /desktop=shell /opt/InputBridge/Installer/ib.exe'" $RootPath/opt/start
 			sudo sed -i "$cb a fi" $RootPath/opt/start
 			sudo sed -i "$cb a echo "\$res">/opt/resolution" $RootPath/opt/start
 			sudo sed -i "$cb i else" $RootPath/opt/start
