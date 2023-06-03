@@ -6,7 +6,7 @@ mkdir ~/drive_e &>/dev/null
 mkdir $RootPath/mnt/drive_e &>/dev/null
 echo -e " Box4Droid中文化补丁..." 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
-echo -e " 请确保wine容器用户名为box4droid已达到最佳效果（用户名可在box选项3-7中查看和更改）"
+echo -e " 请确保wine容器名为box4droid已达到最佳效果（容器名可在box选项3-7中查看和更改）"
 echo -e " 补丁下载中"
 wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
 tar -xf Chinese-LANG-Pack.tar.xz
