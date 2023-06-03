@@ -48,3 +48,7 @@ changewinever中若存在“复制”和“安装”字样，则会跳过对chan
 6月2日更新二
 增加box4droid0.0.3版的简易中文补丁，可通过curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/install && chmod +x install && ./install进行安装
 <p>简易补丁特点：对定制版X11进行适配，只需要在x11中变更分辨率即可使用，添加中文支持，添加E盘，数据可以与box64droid共用，box64droid中更换wine版本，需要重新下载中文补丁进行安装</p>
+
+6月3日更新
+增加box4droid脚本中文化，变更wine脚本添加检测离线脚本包功能，添加自定义版本。
+另外，ib功能需要在脚本里手动开启。需要在ib选择“蒋安装程序”复制到下载，即download文件夹有ib的安装文件，才能正常安装。
