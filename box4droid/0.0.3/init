@@ -125,6 +125,6 @@ else
 echo $res>/opt/resolution
 fi
 
-DISPLAY=:1 $useCores box64 wine64 explorer /desktop=shell,$res /opt/TFM.exe &>/dev/null & sleep 2 && taskset -c 3 \$ib &>/dev/null &
+DISPLAY=:1 $useCores box64 wine64 explorer /desktop=shell,$res /opt/TFM.exe &>/dev/null & sleep 2 && taskset -c 3 $ib &>/dev/null &
 
 . /opt/killAll
