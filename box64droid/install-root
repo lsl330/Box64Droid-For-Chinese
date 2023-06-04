@@ -1,0 +1,194 @@
+clear
+RootPath=~/ubuntu
+rm -f Chinese-LANG-Pack.tar.xz
+mkdir ~/drive_e &>/dev/null
+sudo mkdir $RootPath/mnt/drive_e &>/dev/null
+echo -e " Box64Droid-chroot中文化补丁..." 
+echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+if [ -f "$RootPath/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
+	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
+else
+	echo -e " 补丁下载中"
+	wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+	tar -xf Chinese-LANG-Pack.tar.xz
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 移动补丁到ubuntu目录"
+	sudo rm -rf $RootPath/opt/Chinese-LANG-Pack
+	sudo mv -f Chinese-LANG-Pack $RootPath/opt/
+fi
+echo -e " 复制字体文件"
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/wine/share/wine/fonts/SimSun.ttc
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/wine/share/wine/fonts/PMingLiU-TW.ttf
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/locale-archive-cn $RootPath/usr/lib/locale/locale-archive
+echo -e " 替换bashrc为中文环境"
+sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $RootPath/root/.bashrc
+echo -e " 替换TFM为中文版"
+sudo cp -f $RootPath/opt/Chinese-LANG-Pack/TFM.exe $RootPath/opt/TFM.exe
+echo -e " 起点位置添加快捷启动项" 
+sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts $RootPath/opt
+sudo cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts/调试工具 $RootPath/root/.wine/drive_c/ProgramData/Microsoft/Windows/'Start Menu'
+if sudo test -f "$RootPath/opt/Scripts/changewinever"; then
+	if sudo cat $RootPath/opt/Scripts/changewinever |grep 复制 > /dev/null;then
+		echo -e " changewinever已更新，无需替换"
+	else
+		echo -e " 修改changewinever，更换wine版本后会自动设置中文"
+		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $cd -gt 0 ]; then
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/Scripts/changewinever
+		fi
+	fi
+		if sudo cat $RootPath/opt/Scripts/changewinever |grep 安装 > /dev/null;then
+		echo -e " 更新wine版本时，若download/wineversion文件夹中有离线文件，则使用离线文件进行更新"
+	else
+		echo -e " 修改changewinever，下载wine版本时会自动备份一份到download/wineversion文件夹"
+		wa=$(sudo awk '/read build/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $wa -gt 0 ]; then
+			sudo sed -i "$wa a fi" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wa a mkdir /sdcard/Download/wineversion" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wa a if [ ! -d "/sdcard/Download/wineversion" ]; then" $RootPath/opt/Scripts/changewinever
+		fi
+		wb=$(sudo awk '/amd64.tar.xz/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $wb -gt 0 ]; then
+			sudo sed -i "$wb a cp -f wine-\$ver-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			let wb=wb+2
+			sudo sed -i "$wb a fi" $RootPath/opt/Scripts/changewinever
+			let wb=wb-3
+			sudo sed -i "$wb i else" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wb i echo "解压完成，准备安装"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wb i tar -xf wine-\$ver-amd64.tar.xz" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wb i cp -f /sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz wine-\$ver-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wb i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wb i if [ -f "/sdcard/Download/wineversion/wine-\$ver-amd64.tar.xz" ]; then" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wb i echo "检测是否存在已下载wine文件"" $RootPath/opt/Scripts/changewinever
+		fi
+		wc=$(sudo awk '/staging-amd64.tar.xz/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $wc -gt 0 ]; then
+			sudo sed -i "$wc a cp -f wine-\$ver-staging-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			let wc=wc+2
+			sudo sed -i "$wc a fi" $RootPath/opt/Scripts/changewinever
+			let wc=wc-3
+			sudo sed -i "$wc i else" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wc i echo "解压完成，准备安装"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wc i tar -xf wine-\$ver-staging-amd64.tar.xz" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wc i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz wine-\$ver-staging-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wc i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wc i if [ -f "/sdcard/Download/wineversion/wine-\$ver-staging-amd64.tar.xz" ]; then" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wc i echo "检测是否存在已下载wine文件"" $RootPath/opt/Scripts/changewinever
+			fi
+
+		wd=$(sudo awk '/staging-tkg-amd64.tar.xz/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $wd -gt 0 ]; then
+			sudo sed -i "$wd a cp -f wine-\$ver-staging-tkg-amd64.tar.xz /sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			let wd=wd+2
+			sudo sed -i "$wd a fi" $RootPath/opt/Scripts/changewinever
+			let wd=wd-3
+			sudo sed -i "$wd i else" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wd i echo "解压完成，准备安装"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wd i tar -xf wine-\$ver-staging-tkg-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wd i cp -f /sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz wine-\$ver-staging-tkg-amd64.tar.xz" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wd i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wd i if [ -f "/sdcard/Download/wineversion/wine-\$ver-staging-tkg-amd64.tar.xz" ]; then" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wd i echo "检测是否存在已下载wine文件"" $RootPath/opt/Scripts/changewinever
+		fi
+		wp=$(sudo cat $RootPath/opt/Scripts/changewinever |grep -oE 'wine-proton-[0-9a-zA-Z.-]+-amd64'|head -n 1)
+		we=$(sudo awk '/wine-proton/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $we -gt 0 ]; then
+			sudo sed -i "$we a cp -f $wp.tar.xz /sdcard/Download/wineversion/\$wp.tar.xz" $RootPath/opt/Scripts/changewinever
+			let we=we+2
+			sudo sed -i "$we a fi" $RootPath/opt/Scripts/changewinever
+			let we=we-3
+			sudo sed -i "$we i else" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$we i echo "解压完成，准备安装"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$we i tar -xf \$wp.tar.xz" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$we i cp -f /sdcard/Download/wineversion/\$wp.tar.xz \$wp.tar.xz" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$we i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$we i if [ -f "/sdcard/Download/wineversion/\$wp.tar.xz" ]; then" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$we i echo "检测是否存在已下载wine文件"" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$we i wp=$wp" $RootPath/opt/Scripts/changewinever
+		fi
+		
+		ge=$(sudo cat $RootPath/opt/Scripts/changewinever |grep -oE 'wine-lutris-GE-Proton[0-9a-zA-Z.-]+-x86_64'|head -n 1)
+		wf=$(sudo awk '/wine-lutris-GE-Proton/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
+		if [ $wf -gt 0 ]; then
+			sudo sed -i "$wf a cp -f $ge.tar.xz /sdcard/Download/wineversion/\$ge.tar.xz" $RootPath/opt/Scripts/changewinever
+			let wf=wf+2
+			sudo sed -i "$wf a fi" $RootPath/opt/Scripts/changewinever
+			let wf=wf-3
+			sudo sed -i "$wf i else" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wf i echo "解压完成，准备安装"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wf i tar -xf \$ge.tar.xz" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wf i cp -f /sdcard/Download/wineversion/\$ge.tar.xz \$ge.tar.xz" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wf i echo "检测到存在已下载wine文件，进行离线复制并解压"" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wf i if [ -f "/sdcard/Download/wineversion/\$ge.tar.xz" ]; then" $RootPath/opt/Scripts/changewinever	
+			sudo sed -i "$wf i echo "检测是否存在已下载wine文件"" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$wf i ge=$ge" $RootPath/opt/Scripts/changewinever
+		fi
+		
+		echo -e " changewinever修改完成，更新wine时先检测download/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
+	fi
+	
+fi
+echo -e " 下载语言环境切换文件"
+wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/lang-root &>/dev/null
+chmod +x lang-root 
+sudo mv -f lang-root  $PREFIX/bin/lang-root
+echo -e " 配置语言环境切换文件，以后在termux上运行lang-root即可切换语言环境"
+
+if sudo test -f "$RootPath/root/.wine/dosdevices/d:/run.bat"; then
+	echo -e " d盘已有启动文件，无需替换"
+else
+	echo -e " 下载run.bat到D盘根目录，快捷启动将优先使用run.bat启动"
+	echo -e " 若需修改run.bat文件，保存时，记得将编码调整为ansi"
+	wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/run.bat &>/dev/null
+	sudo mv -f run.bat $RootPath/root/.wine/dosdevices/d:/run.bat
+fi	
+
+if sudo test -f "$RootPath/opt/start"; then
+	if sudo cat $RootPath/opt/start |grep 自定义 > /dev/null;then
+		echo -e " start已更新，无需更改"
+	else
+		echo -e " 修改start文件"
+		ca=$(sudo awk '/read choice/{print NR}' $RootPath/opt/start|head -n 1)
+		if [ $ca -gt 0 ]; then
+			sudo sed -i "$ca a fi" $RootPath/opt/start
+			sudo sed -i "$ca i else" $RootPath/opt/start
+			sudo sed -i "$ca i choice=1" $RootPath/opt/start
+			sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $RootPath/opt/start
+		fi
+	fi
+fi
+
+if [ -f "$RootPath/opt/Scripts/start-box64" ]; then
+	if sudo cat $RootPath/opt/Scripts/start-box64 |grep 启动 > /dev/null;then
+		echo -e " start-box64已更新，无需更改"
+	else
+		echo -e " 修改start-box64文件"
+		
+		echo -e " 下载start-box64进行替换"
+		wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box64droid/start-box64 &>/dev/null
+		sudo mv -f start-box64 $RootPath/opt/Scripts/start-box64
+	fi
+fi
+
+if [ -f "$PREFIX/bin/box64droid-root" ]; then
+	if cat $PREFIX/bin/box64droid-root |grep resolution > /dev/null; then
+		echo -e " box64droid-root已更新，无需更改"
+	else
+echo -e " 修改box64droid-root文件，以后可用cbox进行快捷启动"
+		sed -i "s/^[^#].*Empty/#&/g" $PREFIX/bin/box64droid-root
+		sed -i "s/^[^#].*\"--start\"/#&/g" $PREFIX/bin/box64droid-root
+		sed -i '0,/then/s/then/\#then/g' $PREFIX/bin/box64droid-root
+		sed -i "8isudo mount --bind ~/drive_e \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/box64droid-root
+		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/box64droid-root
+		cp -f $PREFIX/bin/box64droid-root $PREFIX/bin/cbox
+		sed -i "2isudo rm -f ~/ubuntu/opt/resolution" $PREFIX/bin/box64droid-root
+		sed -i "2isudo rm -f ~/ubuntu/opt/quickstart" $PREFIX/bin/box64droid-root
+		sed -i "2isudo touch ~/ubuntu/opt/quickstart"  $PREFIX/bin/cbox
+	fi
+fi
+
+echo -e " 安装完成"
+rm -f install
