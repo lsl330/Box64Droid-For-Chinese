@@ -1,0 +1,30 @@
+#!/bin/bash
+clear
+
+ib='box64 wine explorer /desktop=shell /opt/InputBridge/Installer/ib.exe'
+if [ ! -e /root/.wine/dosdevices/e: ]; then
+	ln -s /mnt/drive_e /root/.wine/dosdevices/e:
+fi
+if [ -f /sdcard/Download/resolution.conf ]; then
+	res=$(cat /sdcard/Download/resolution.conf)
+elif [ -f /opt/resolution ]; then
+	res=$(cat /opt/resolution)
+else
+	echo "输入相应分辨率回车，比如1280x720"
+	read res
+echo $res>/opt/resolution
+fi
+clear
+echo -e "\033[0;33m Box64 + Wine 已经启动，如果你想要停止运行，请在终端输入 \033[0;36m'1'\033[0;33m 并按下回车键"
+if [ -f /root/.wine/dosdevices/d:/run.bat ]; then
+echo -e  运行自定义run.bat，文件存放在D盘根目录，可自行修改
+	WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null & sleep 2 && taskset -c 3 $ib &>/dev/null &
+else
+	WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /opt/TFM &>/dev/null &
+fi
+
+read -p "" yn
+case $yn in
+        [1]* ) echo " Stopping Wine...";box64 wineserver -k &>/dev/null;echo"";echo " Exiting from Box64Droid...";echo "";exit
+esac
+ 
