@@ -5,7 +5,7 @@ mkdir ~/drive_e &>/dev/null
 sudo mkdir $RootPath/mnt/drive_e &>/dev/null
 echo -e " Box64Droid-chroot中文化补丁..." 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
-if [ -f "$RootPath/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
+if sudo test -f "$RootPath/opt/Chinese-LANG-Pack/SimSun.ttc"; then
 	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
 else
 	echo -e " 补丁下载中"
@@ -165,8 +165,6 @@ if [ -f "$RootPath/opt/Scripts/start-box64" ]; then
 	if sudo cat $RootPath/opt/Scripts/start-box64 |grep 启动 > /dev/null;then
 		echo -e " start-box64已更新，无需更改"
 	else
-		echo -e " 修改start-box64文件"
-		
 		echo -e " 下载start-box64进行替换"
 		wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box64droid/start-box64 &>/dev/null
 		sudo mv -f start-box64 $RootPath/opt/Scripts/start-box64
