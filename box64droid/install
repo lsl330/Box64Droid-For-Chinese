@@ -17,8 +17,8 @@ else
 	mv -f Chinese-LANG-Pack $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/
 fi
 echo -e " 复制字体文件"
-cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/SimSun.ttc
-cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/wine/share/wine/fonts/PMingLiU-TW.ttf
+cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/wine/share/wine/fonts/SimSun.ttc
+cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/wine/share/wine/fonts/PMingLiU-TW.ttf
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-cn $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
@@ -159,7 +159,7 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start-
 	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start-box64 |grep 启动 > /dev/null;then
 		echo -e " start-box64已更新，无需更改"
 	else
-		echo -e " 修改start文件"
+		echo -e " 修改start-box64文件"
 		
 		echo -e " 下载start-box64进行替换"
 		wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box64droid/start-box64 &>/dev/null
