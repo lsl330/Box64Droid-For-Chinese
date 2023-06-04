@@ -174,20 +174,20 @@ if [ -f "$RootPath/opt/Scripts/start-box64" ]; then
 fi
 
 if [ -f "$PREFIX/bin/box64droid" ]; then
-	if cat $PREFIX/bin/box64droid-root |grep resolution > /dev/null; then
-		echo -e " box64droid-root已更新，无需更改"
-	elif cat $PREFIX/bin/box64droid-root |grep ROOTFS > /dev/null; then
+	if cat $PREFIX/bin/box64droid |grep resolution > /dev/null; then
+		echo -e " box64droid已更新，无需更改"
+	elif cat $PREFIX/bin/box64droid |grep ROOTFS > /dev/null; then
 		echo -e " 修改box64droid文件，以后可用startbox-root和cbox进行快捷启动"
-		sed -i "s/^[^#].*Empty/#&/g" $PREFIX/bin/box64droid-root
-		sed -i "s/^[^#].*\"--start\"/#&/g" $PREFIX/bin/box64droid-root
-		sed -i '0,/then/s/then/\#then/g' $PREFIX/bin/box64droid-root
-		sed -i "8isudo mount --bind ~/drive_e \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/box64droid-root
-		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/box64droid-root
-		cp -f $PREFIX/bin/box64droid-root $PREFIX/bin/cbox
-		sed -i "2isudo rm -f ~/ubuntu/opt/resolution" $PREFIX/bin/box64droid-root
-		sed -i "2isudo rm -f ~/ubuntu/opt/quickstart" $PREFIX/bin/box64droid-root
+		sed -i "s/^[^#].*Empty/#&/g" $PREFIX/bin/box64droid
+		sed -i "s/^[^#].*\"--start\"/#&/g" $PREFIX/bin/box64droid
+		sed -i '0,/then/s/then/\#then/g' $PREFIX/bin/box64droid
+		sed -i "8isudo mount --bind ~/drive_e \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/box64droid
+		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/box64droid
+		cp -f $PREFIX/bin/box64droid $PREFIX/bin/cbox
+		sed -i "2isudo rm -f ~/ubuntu/opt/resolution" $PREFIX/bin/box64droid
+		sed -i "2isudo rm -f ~/ubuntu/opt/quickstart" $PREFIX/bin/box64droid
 		sed -i "2isudo touch ~/ubuntu/opt/quickstart"  $PREFIX/bin/cbox
-		cp -f $PREFIX/bin/box64droid-root $PREFIX/bin/startbox-root
+		cp -f $PREFIX/bin/box64droid $PREFIX/bin/startbox-root
 	else
 		echo -e " 你的box64droid貌似不是chroot版本，请检查后重试"
 	fi
