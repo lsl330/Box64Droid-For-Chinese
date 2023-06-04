@@ -109,7 +109,24 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/change
 			sed -i "$we i if [ -f "/sdcard/Download/wineversion/\$wp.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
 			sed -i "$we i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
 			sed -i "$we i wp=$wp" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-		fi			
+		fi
+
+		ge=$(cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever |grep -oE 'wine-lutris-GE-Proton[0-9a-zA-Z.-]+-x86_64'|head -n 1)
+		wf=$(awk '/wine-lutris-GE-Proton/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever|head -n 1)
+		if [ $wf -gt 0 ]; then
+			sed -i "$wf a cp -f $ge.tar.xz /sdcard/Download/wineversion/\$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			let wf=wf+2
+			sed -i "$wf a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			let wf=wf-3
+			sed -i "$wf i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			sed -i "$wf i echo "解压完成，准备安装"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			sed -i "$wf i tar -xf \$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			sed -i "$wf i cp -f /sdcard/Download/wineversion/\$ge.tar.xz \$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			sed -i "$wf i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			sed -i "$wf i if [ -f "/sdcard/Download/wineversion/\$ge.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			sed -i "$wf i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			sed -i "$wf i ge=$ge" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+		fi
 		echo -e " changewinever修改完成，更新wine时先检测download/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
 	fi
 fi
