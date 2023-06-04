@@ -168,13 +168,6 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start-
 fi
 
 if [ -f "$PREFIX/bin/box64droid" ]; then
-	if cat $PREFIX/bin/box64droid |grep opt/resolution > /dev/null; then
-		echo -e " box64droid已更新，无需更改"
-	else
-
-	fi
-fi
-if [ -f "$PREFIX/bin/box64droid" ]; then
 	if cat $PREFIX/bin/box64droid |grep resolution > /dev/null; then
 		echo -e " box64droid已更新，无需更改"
 	elif cat $PREFIX/bin/box64droid |grep VirGL > /dev/null; then 
