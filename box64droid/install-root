@@ -179,7 +179,7 @@ if [ -f "$PREFIX/bin/box64droid" ]; then
 		sed -i "s/^[^#].*Empty/#&/g" $PREFIX/bin/box64droid
 		sed -i "s/^[^#].*\"--start\"/#&/g" $PREFIX/bin/box64droid
 		sed -i '0,/then/s/then/\#then/g' $PREFIX/bin/box64droid
-		sed -i "8isudo mount --bind ~/drive_e \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/box64droid
+		sed -i "15isudo mount --bind ~/drive_e \$ROOTFSPATH/mnt/drive_e" $PREFIX/bin/box64droid
 		sed -i '$a sudo umount \$ROOTFSPATH/mnt/drive_e' $PREFIX/bin/box64droid
 		cp -f $PREFIX/bin/box64droid $PREFIX/bin/cbox
 		sed -i "2isudo rm -f ~/ubuntu/opt/resolution" $PREFIX/bin/box64droid
