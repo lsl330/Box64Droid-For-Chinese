@@ -35,8 +35,8 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/change
 		cd=$(awk '/WINEDLLOVERRIDES/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever|head -n 1)
 		if [ $cd -gt 0 ]; then
 			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /opt/wine/share/wine/fonts/PMingLiU-TW.ttf" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /opt/wine/share/wine/fonts/SimSun.ttc" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
 			sed -i "$cd a echo -e "复制字体文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
 		fi
 	fi
