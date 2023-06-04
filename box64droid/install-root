@@ -35,8 +35,8 @@ if sudo test -f "$RootPath/opt/Scripts/changewinever"; then
 		cd=$(sudo awk '/WINEDLLOVERRIDES/{print NR}' $RootPath/opt/Scripts/changewinever|head -n 1)
 		if [ $cd -gt 0 ]; then
 			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/locale-archive-cn /usr/lib/locale/locale-archive" $RootPath/opt/Scripts/changewinever
-			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /root/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/Scripts/changewinever
-			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /root/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/PMingLiU-TW.ttf /opt/wine/share/wine/fonts/PMingLiU-TW.ttf" $RootPath/opt/Scripts/changewinever
+			sudo sed -i "$cd a cp -f /opt/Chinese-LANG-Pack/SimSun.ttc /opt/wine/share/wine/fonts/SimSun.ttc" $RootPath/opt/Scripts/changewinever
 			sudo sed -i "$cd a echo -e "复制字体文件"" $RootPath/opt/Scripts/changewinever
 		fi
 	fi
