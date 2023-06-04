@@ -4,8 +4,8 @@ rm -f Chinese-LANG-Pack.tar.xz
 mkdir ~/drive_e &>/dev/null
 mkdir $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/mnt/drive_e &>/dev/null
 echo -e " Box64Droid中文化补丁..." 
-echo -e " 本补丁除中文环境外，还会包含一些额外的便捷功能"
-if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/tools/Chinese-LANG-Pack/SimSun.ttc" ]; then
+echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
 	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
 else
 	echo -e " 补丁下载中"
