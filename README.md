@@ -18,7 +18,7 @@ curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/
 5、与定制版termux-x11关联，具体介绍相见termux-11中相关介绍  
 
 # Box64Droid-For-Chinesed 单独优化    
-1、添加cbox、vbox、pbox作为chroot、virgl、proot-dvxk版本的快捷启动命令，只需输入cbox、vbox、pbox即可进入对应的环境  
+1、添加pbox、vbox、cbox作为proot-dvxk、virgl、chroot版本的快捷启动命令，只需输入pbox、vbox、cbox即可进入对应的环境，若需进入设置项，可以输入startbox、startbox-virgl、startbox-root进入设置  
 2、添加快捷启动run.bat到d盘。该文件存在与否同时会作为是否后台启动ib的判定，如删掉该文件，会自动切换回原有启动。  
    另外，可自行编辑run.bat达到不同的启动目的（如使用命令启动后，自动运行相关游戏）。需要注意的是，若run.bat含有中文，需保存为ansi编码方可正常识别。  
 3、可使用lang、lang-root快捷切换proot和chroot的wine语言环境。
