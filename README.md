@@ -21,6 +21,7 @@ curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/
 1、添加cbox、vbox、pbox作为chroot、virgl、proot-dvxk版本的快捷启动命令，只需输入cbox、vbox、pbox即可进入对应的环境  
 2、添加快捷启动run.bat到d盘。改文件存在与否同时会作为是否后台启动ib的判定，如删掉该文件，会自动切换回原有启动。  
    另外，可自行编辑run.bat达到不同的启动目的（如使用命令启动后，自动运行相关游戏）。需要注意的是，若run.bat含有中文，需保存为ansi编码方可正常识别。  
+3、可使用lang、lang-root快捷切换proot和chroot的wine语言环境。
    
 # Box4Droid 的注意事项    
 ib功能需要在脚本里手动开启。需要在ib选择“蒋安装程序”复制到下载，即download文件夹有ib的安装文件，才能正常安装。  
