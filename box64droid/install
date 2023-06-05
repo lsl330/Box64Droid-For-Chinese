@@ -4,7 +4,29 @@ rm -f Chinese-LANG-Pack.tar.xz
 mkdir ~/drive_e &>/dev/null
 mkdir $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/mnt/drive_e &>/dev/null
 echo -e " Box64Droid中文化补丁..." 
-echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+echo -e " 本补丁除中文环境外，还会包含一些额外的便捷功能"
+if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
+	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
+elif [ -f /sdcard/download/Chinese-LANG-Pack.tar.xz ]&&[ 811cad9d4e6406db3b004a3229cb1bb2 == $(md5sum /sdcard/download/Chinese-LANG-Pack.tar.xz | cut -d " " -f1) ]
+then
+	echo " 检测存在本地文件使用，使用本地文件进行安装"
+	cp -f /sdcard/download/Chinese-LANG-Pack.tar.xz Chinese-LANG-Pack.tar.xz 
+	tar -xf Chinese-LANG-Pack.tar.xz
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 移动补丁到ubuntu目录"
+	rm -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack
+	mv -f Chinese-LANG-Pack $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/
+else
+	echo -e " 补丁下载中"
+	wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+	echo -e " 下载完成，备份中文包到本地download文件夹"
+	cp -f Chinese-LANG-Pack.tar.xz /sdcard/download/Chinese-LANG-Pack.tar.xz
+	tar -xf Chinese-LANG-Pack.tar.xz
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 移动补丁到ubuntu目录"
+	rm -rf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack
+	mv -f Chinese-LANG-Pack $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/
+fi
 if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
 	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
 else
@@ -111,22 +133,22 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/change
 			sed -i "$we i wp=$wp" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
 		fi
 
-		ge=$(cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever |grep -oE 'wine-lutris-GE-Proton[0-9a-zA-Z.-]+-x86_64'|head -n 1)
-		wf=$(awk '/wine-lutris-GE-Proton/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever|head -n 1)
-		if [ $wf -gt 0 ]; then
-			sed -i "$wf a cp -f $ge.tar.xz /sdcard/Download/wineversion/\$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			let wf=wf+2
-			sed -i "$wf a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			let wf=wf-3
-			sed -i "$wf i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			sed -i "$wf i echo "解压完成，准备安装"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
-			sed -i "$wf i tar -xf \$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
-			sed -i "$wf i cp -f /sdcard/Download/wineversion/\$ge.tar.xz \$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			sed -i "$wf i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
-			sed -i "$wf i if [ -f "/sdcard/Download/wineversion/\$ge.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
-			sed -i "$wf i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-			sed -i "$wf i ge=$ge" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
-		fi
+		#ge=$(cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever |grep -oE 'wine-lutris-GE-Proton[0-9a-zA-Z.-]+-x86_64'|head -n 1)
+		#wf=$(awk '/wine-lutris-GE-Proton/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever|head -n 1)
+		#if [ $wf -gt 0 ]; then
+			#sed -i "$wf a cp -f $ge.tar.xz /sdcard/Download/wineversion/\$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			#let wf=wf+2
+			#sed -i "$wf a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			#let wf=wf-3
+			#sed -i "$wf i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			#sed -i "$wf i echo "解压完成，准备安装"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			#sed -i "$wf i tar -xf \$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			#sed -i "$wf i cp -f /sdcard/Download/wineversion/\$ge.tar.xz \$ge.tar.xz" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			#sed -i "$wf i echo "检测到存在已下载wine文件，进行离线复制并解压"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			#sed -i "$wf i if [ -f "/sdcard/Download/wineversion/\$ge.tar.xz" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever	
+			#sed -i "$wf i echo "检测是否存在已下载wine文件"" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+			#sed -i "$wf i ge=$ge" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/changewinever
+		#fi
 		echo -e " changewinever修改完成，更新wine时先检测download/wineversion文件夹有无离线文件，有则使用离线文件进行更新"
 	fi
 fi
