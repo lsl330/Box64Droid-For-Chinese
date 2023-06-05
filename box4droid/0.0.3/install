@@ -7,13 +7,28 @@ mkdir $RootPath/mnt/drive_e &>/dev/null
 echo -e " Box4Droid中文化补丁... " 
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 echo -e " 请确保wine容器名为box4droid已达到最佳效果（容器名可在box选项3-7中查看和更改）"
-echo -e " 补丁下载中"
-wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
-tar -xf Chinese-LANG-Pack.tar.xz
-rm -f Chinese-LANG-Pack.tar.xz
-echo -e " 移动补丁到ubuntu目录"
-rm -rf $RootPath/opt/Chinese-LANG-Pack
-mv -f Chinese-LANG-Pack $RootPath/opt/
+if [ -f "$RootPath/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
+	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
+elif [ -f /sdcard/download/Chinese-LANG-Pack.tar.xz ]&&[ 811cad9d4e6406db3b004a3229cb1bb2 == $(md5sum /sdcard/download/Chinese-LANG-Pack.tar.xz | cut -d " " -f1) ]
+then
+	echo " 检测存在本地文件使用，使用本地文件进行安装"
+	cp -f /sdcard/download/Chinese-LANG-Pack.tar.xz Chinese-LANG-Pack.tar.xz 
+	tar -xf Chinese-LANG-Pack.tar.xz
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 移动补丁到ubuntu目录"
+	rm -rf $RootPath/opt/Chinese-LANG-Pack
+	mv -f Chinese-LANG-Pack $RootPath/opt/
+else
+	echo -e " 补丁下载中"
+	wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+	echo -e " 下载完成，备份中文包到本地download文件夹"
+	cp -f Chinese-LANG-Pack.tar.xz /sdcard/download/Chinese-LANG-Pack.tar.xz
+	tar -xf Chinese-LANG-Pack.tar.xz
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 移动补丁到ubuntu目录"
+	rm -rf $RootPath/opt/Chinese-LANG-Pack
+	mv -f Chinese-LANG-Pack $RootPath/opt/
+fi
 echo -e " 复制字体文件"
 cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/Wines/current/share/wine/fonts/SimSun.ttc
 cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/Wines/current/share/wine/fonts/PMingLiU-TW.ttf
