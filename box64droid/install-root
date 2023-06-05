@@ -7,9 +7,20 @@ echo -e " Box64Droid-chroot中文化补丁..."
 echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
 if sudo test -f "$RootPath/opt/Chinese-LANG-Pack/SimSun.ttc"; then
 	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
+elif [ -f /sdcard/download/Chinese-LANG-Pack.tar.xz ]&&[ 811cad9d4e6406db3b004a3229cb1bb2 == $(md5sum /sdcard/download/Chinese-LANG-Pack.tar.xz | cut -d " " -f1) ]
+then
+	echo " 检测存在本地文件使用，使用本地文件进行安装"
+	cp -f /sdcard/download/Chinese-LANG-Pack.tar.xz Chinese-LANG-Pack.tar.xz 
+	tar -xf Chinese-LANG-Pack.tar.xz
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 移动补丁到ubuntu目录"
+	sudo rm -rf $RootPath/opt/Chinese-LANG-Pack
+	sudo mv -f Chinese-LANG-Pack $RootPath/opt/
 else
 	echo -e " 补丁下载中"
 	wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+	echo -e " 下载完成，备份中文包到本地download文件夹"
+	cp -f Chinese-LANG-Pack.tar.xz /sdcard/download/Chinese-LANG-Pack.tar.xz
 	tar -xf Chinese-LANG-Pack.tar.xz
 	rm -f Chinese-LANG-Pack.tar.xz
 	echo -e " 移动补丁到ubuntu目录"
