@@ -13,13 +13,13 @@ curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/
 # Box64Droid-For-Chinese 和 Box4Droid-For-Chinese的共同修改  
 1、添加中文，并可在更换wine版本时自动切换中文  
 2、在更新wine时，先检测在download/wineversions文件夹中是否存在离线版本。若存在，直接使用离线版本进行更新。  
-3、添加E盘，位置在/data/data/com.termux/files/home/drive_e/，改空间不随官方更新而删除，可将游戏存放在E盘减少不必要的数据迁移  
+3、添加E盘，位置在/data/data/com.termux/files/home/drive_e/，该空间不随官方更新而删除，可将游戏存放在E盘减少不必要的数据迁移  
 4、打上proot突破限制补丁，对一些游戏在proot上的闪退会有所帮助  
 5、与定制版termux-x11关联，具体介绍相见termux-11中相关介绍  
 
 # Box64Droid-For-Chinesed 单独优化    
 1、添加cbox、vbox、pbox作为chroot、virgl、proot-dvxk版本的快捷启动命令，只需输入cbox、vbox、pbox即可进入对应的环境  
-2、添加快捷启动run.bat到d盘。改文件存在与否同时会作为是否后台启动ib的判定，如删掉该文件，会自动切换回原有启动。  
+2、添加快捷启动run.bat到d盘。该文件存在与否同时会作为是否后台启动ib的判定，如删掉该文件，会自动切换回原有启动。  
    另外，可自行编辑run.bat达到不同的启动目的（如使用命令启动后，自动运行相关游戏）。需要注意的是，若run.bat含有中文，需保存为ansi编码方可正常识别。  
 3、可使用lang、lang-root快捷切换proot和chroot的wine语言环境。
    
