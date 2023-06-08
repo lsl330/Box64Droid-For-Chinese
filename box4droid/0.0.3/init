@@ -112,18 +112,11 @@ echo " Loading preferences from configuration files, please wait..."
 echo ""
 
 
-if [ ! -e /opt/prefixes/box4droid/dosdevices/e: ]; then
-ln -s /mnt/drive_e /opt/prefixes/box4droid/dosdevices/e:
-fi
-
 if [ -f /sdcard/Download/resolution.conf ]; then
 res=$(cat /sdcard/Download/resolution.conf)
-elif [ -f /opt/resolution ]; then
-res=$(cat /opt/resolution)
 else
 	echo 请输入分辨率
 	read res
-echo $res>/opt/resolution
 fi
 
 DISPLAY=:1 $useCores box64 wine64 explorer /desktop=shell,$res /opt/TFM.exe &>/dev/null & sleep 2 && taskset -c 3 $ib &>/dev/null &
