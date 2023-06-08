@@ -1,5 +1,5 @@
 clear
-RootPath=~/Box4Droid/ubuntu
+RootPath=~/Box4Droid/ubuntu-fs
 rm -f Chinese-LANG-Pack.tar.xz
 rm -rf scripts-cn.tar.gz
 mkdir ~/drive_e &>/dev/null
@@ -15,7 +15,7 @@ then
 	cp -f /sdcard/download/Chinese-LANG-Pack.tar.xz Chinese-LANG-Pack.tar.xz 
 	tar -xf Chinese-LANG-Pack.tar.xz
 	rm -f Chinese-LANG-Pack.tar.xz
-	echo -e " 移动补丁到ubuntu目录"
+	echo -e " 移动补丁到opt目录"
 	rm -rf $RootPath/opt/Chinese-LANG-Pack
 	mv -f Chinese-LANG-Pack $RootPath/opt/
 else
@@ -25,7 +25,7 @@ else
 	cp -f Chinese-LANG-Pack.tar.xz /sdcard/download/Chinese-LANG-Pack.tar.xz
 	tar -xf Chinese-LANG-Pack.tar.xz
 	rm -f Chinese-LANG-Pack.tar.xz
-	echo -e " 移动补丁到ubuntu目录"
+	echo -e " 移动补丁到opt目录"
 	rm -rf $RootPath/opt/Chinese-LANG-Pack
 	mv -f Chinese-LANG-Pack $RootPath/opt/
 fi
@@ -41,7 +41,7 @@ echo -e " 起点位置添加快捷启动项"
 cp -rf $RootPath/opt/Chinese-LANG-Pack/Shortcuts $RootPath/opt
 cp -rf $RootPath/opt/Shortcuts/*  "$RootPath/opt/prefixes/box4droid/drive_c/ProgramData/Microsoft/Windows/Start Menu"
 echo " 下载并安装脚本中文包"
-cd $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt
+cd $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu-fs/opt
 wget -q --show-progress https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/scripts-cn.tar.gz
 tar -xvf scripts-cn.tar.gz -C "$RootPath/opt"
 rm -rf scripts-cn.tar.gz
