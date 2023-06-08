@@ -111,6 +111,7 @@ echo ""
 echo " Loading preferences from configuration files, please wait..."
 echo ""
 
+
 if [ ! -e /opt/prefixes/box4droid/dosdevices/e: ]; then
 ln -s /mnt/drive_e /opt/prefixes/box4droid/dosdevices/e:
 fi
