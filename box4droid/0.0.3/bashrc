@@ -106,7 +106,7 @@ export MESA_LOADER_DRIVER_OVERRIDE=zink
 export Lang=eng
 
 export SCRIPT=proot
-export res=640x480
+export res=1280x720
 export DISPLAY=:1
 trap 'box64 wineserver -k &>/dev/null & . /opt/scripts/menu' INT
 alias winetricks='box64 /root/box64_bash/bash /opt/winetricks'
