@@ -30,8 +30,10 @@ else
 	mv -f Chinese-LANG-Pack $RootPath/opt/
 fi
 echo -e " 复制字体文件"
-cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/Wines/current/share/wine/fonts/SimSun.ttc
-cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/Wines/current/share/wine/fonts/PMingLiU-TW.ttf
+if [ -e "$RootPath/opt/Wines/current/share/wine/fonts" ]; then
+	cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/Wines/current/share/wine/fonts/SimSun.ttc
+	cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/Wines/current/share/wine/fonts/PMingLiU-TW.ttf
+fi
 cp -f $RootPath/opt/Chinese-LANG-Pack/locale-archive-cn $RootPath/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
 sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $RootPath/root/.bashrc
@@ -76,6 +78,6 @@ chmod +x start-ubuntu.sh
 mv -f start-ubuntu.sh  ~/Box4Droid/start-ubuntu.sh
 echo -e " 下载bashrc文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/bashrc &>/dev/null
-mv -f bashrc  ~/Box4Droid/ubuntu/root/.bashrc
+mv -f bashrc  ~/Box4Droid/ubuntu-fs/root/.bashrc
 echo -e " 安装完成"
 rm -f install
