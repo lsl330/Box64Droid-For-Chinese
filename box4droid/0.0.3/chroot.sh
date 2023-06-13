@@ -28,7 +28,7 @@ sudo mount --bind /data/data/com.termux/files/usr/tmp $folder/tmp
 echo " Mounting /sdcard ... "
 sudo mount --bind /storage/emulated/0/ $folder/sdcard
 echo " Mounting /drive_e ... "
-sudo mount --bind ~/drive_e $folder/mnt/drive_e
+sudo mount --bind /data/data/com.termux/files/home/drive_e $folder/mnt/drive_e
 echo -e "\033[0;92m Mounting Done ! \033[0m"
 
 touch /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/box4droid/opt/chroot
