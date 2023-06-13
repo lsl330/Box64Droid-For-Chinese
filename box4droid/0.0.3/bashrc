@@ -105,7 +105,7 @@ export MESA_LOADER_DRIVER_OVERRIDE=zink
 
 export Lang=eng
 
-export SCRIPT=proot
+export SCRIPT=prootdistro
 export res=1280x720
 export DISPLAY=:1
 trap 'box64 wineserver -k &>/dev/null & . /opt/scripts/menu' INT
