@@ -36,6 +36,6 @@ ib功能需要在脚本里手动开启。需要在ib选择“蒋安装程序”�
 # 定制版x11  
 定制版termux-x11（由本人进行汉化，java部分由补补23456完成），定制版termux添加以下功能：  
 1、termux-x11全汉化  
-2、termux-x11添加全屏居中功能（预设分辨率或自定义分辨率时生效）  
+2、termux-x11添加全屏居中功能（因官方已添加居中功能，已合并到官方上游代码）  
 3、termux-x11设定的分辨率，输出到手机存储\Download\resolution.conf（需手动赋予termux-x11存储权限,变更分辨率需设置分辨率后返回初始界面才会生效）  
 4、快捷启动对定制版termux-x11进行优化，若存在手机存储\Download\resolution.conf文件，启动box64droid时无需再次手动输入分辨率
