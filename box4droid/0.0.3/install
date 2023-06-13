@@ -1,11 +1,11 @@
 clear
-export Rootfs="$PREFIX/var/lib/proot-distro/installed-rootfs/box4droid"
+export RootPath="$PREFIX/var/lib/proot-distro/installed-rootfs/box4droid"
 rm -f Chinese-LANG-Pack.tar.xz
 rm -rf scripts-cn.tar.gz
 mkdir ~/drive_e &>/dev/null
 mkdir $RootPath/mnt/drive_e &>/dev/null
 echo -e " Box4Droid中文化补丁... " 
-echo -e " 本补丁除了中文环境外，还会包含一些额外的便捷功能"
+echo -e " 本补丁除中文环境外，还会包含一些额外的便捷功能"
 echo -e " 请确保wine容器名为box4droid已达到最佳效果（容器名可在box选项3-7中查看和更改）"
 if [ -f "$RootPath/opt/Chinese-LANG-Pack/SimSun.ttc" ]; then
 	echo -e " 检测到OPT目录已存在补丁文件，不再重复下载中文化补丁"
@@ -79,6 +79,6 @@ chmod +x start-ubuntu.sh
 mv -f start-ubuntu.sh $HOME/Box4Droid/start-ubuntu.sh
 echo -e " 下载bashrc文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/bashrc &>/dev/null
-mv -f bashrc  $Rootfs/root/.bashrc
+mv -f bashrc  $RootPath/root/.bashrc
 echo -e " 安装完成"
 rm -f install
