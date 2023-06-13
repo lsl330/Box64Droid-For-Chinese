@@ -1,5 +1,5 @@
 clear
-RootPath=~/Box4Droid/ubuntu-fs
+export Rootfs="$PREFIX/var/lib/proot-distro/installed-rootfs/box4droid"
 rm -f Chinese-LANG-Pack.tar.xz
 rm -rf scripts-cn.tar.gz
 mkdir ~/drive_e &>/dev/null
@@ -72,13 +72,13 @@ mv -f init  $RootPath/opt/init
 echo -e " 下载chroot.sh文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/chroot.sh &>/dev/null
 chmod +x chroot.sh
-mv -f chroot.sh  ~/Box4Droid/chroot.sh
+mv -f chroot.sh $HOME/Box4Droid/chroot.sh
 echo -e " 下载start-ubuntu.sh文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/start-ubuntu.sh &>/dev/null
 chmod +x start-ubuntu.sh
-mv -f start-ubuntu.sh  ~/Box4Droid/start-ubuntu.sh
+mv -f start-ubuntu.sh $HOME/Box4Droid/start-ubuntu.sh
 echo -e " 下载bashrc文件"
 wget https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/bashrc &>/dev/null
-mv -f bashrc  ~/Box4Droid/ubuntu-fs/root/.bashrc
+mv -f bashrc  $Rootfs/root/.bashrc
 echo -e " 安装完成"
 rm -f install
