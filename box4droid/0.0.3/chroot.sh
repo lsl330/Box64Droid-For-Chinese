@@ -6,7 +6,7 @@ export USER=root
 export HOME=/root
 export LANGUAGE=C
 export LANG=C
-folder=/data/data/com.termux/files/home/Box4Droid/ubuntu-fs
+folder=/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/box4droid
 
 if [ -e $folder/sdcard ]; then
 echo ""
@@ -31,7 +31,7 @@ echo " Mounting /drive_e ... "
 sudo mount --bind ~/drive_e / $folder/mnt/drive_e
 echo -e "\033[0;92m Mounting Done ! \033[0m"
 
-touch /data/data/com.termux/files/home/Box4Droid/ubuntu-fs/opt/chroot
+touch /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/box4droid/opt/chroot
 
 echo -e "\033[0;92m Chrooting ... \033[0m"
 sudo chroot $folder /bin/su - root
