@@ -18,9 +18,9 @@ clear
 echo -e "\033[0;33m Box64 + Wine 已经启动，如果你想要停止运行，请在终端输入 \033[0;36m'1'\033[0;33m 并按下回车键"
 if [ -f /root/.wine/dosdevices/d:/run.bat ]; then
 echo -e  运行自定义run.bat，文件存放在D盘根目录，可自行修改
-	WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null & sleep 2 && taskset -c 3 $ib &>/dev/null &
+	taskset -c 4-7 box64 wine explorer /desktop=shell,$res /root/.wine/dosdevices/d:/run.bat &>/dev/null & sleep 2 && taskset -c 3 $ib &>/dev/null &
 else
-	WINEDEBUG=-all taskset -c 4-7 box64 wine explorer /desktop=shell,$res /opt/TFM &>/dev/null &
+	taskset -c 4-7 box64 wine explorer /desktop=shell,$res /opt/TFM &>/dev/null &
 fi
 
 read -p "" yn
