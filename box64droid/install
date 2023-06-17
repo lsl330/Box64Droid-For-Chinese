@@ -205,7 +205,17 @@ if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start-
 		mv -f start-box64 $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start-box64
 	fi
 fi
-
+if [ -f "$PREFIX/bin/start-box64droid" ]; then
+	if cat $PREFIX/bin/start-box64droid |grep drive_e > /dev/null;then
+		echo -e " start-box64droid已更新，无需替换"
+	else
+		echo -e " 修改start-box64droid，添加E盘"
+		ce=$(awk '/sdcard/{print NR}' $PREFIX/bin/start-box64droid|head -n 1)
+		if [ $ce -gt 0 ]; then
+			sed -i "$ce a command+=\" -b /data/data/com.termux/files/home/drive_e:/mnt/drive_e\"" $PREFIX/bin/start-box64droid
+		fi
+	fi
+fi
 if [ -f "$PREFIX/bin/box64droid" ]; then
 	if cat $PREFIX/bin/box64droid |grep resolution > /dev/null; then
 		echo -e " box64droid已更新，无需更改"
