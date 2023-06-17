@@ -214,6 +214,7 @@ if [ -f "$PREFIX/bin/start-box64droid" ]; then
 		if [ $ce -gt 0 ]; then
 			sed -i "$ce a command+=\" -b /data/data/com.termux/files/home/drive_e:/mnt/drive_e\"" $PREFIX/bin/start-box64droid
 		fi
+		sed -i 's/tmp:\/tmp/tmp\/.X11-unix\/:\/tmp\/.X11-unix\//g' $PREFIX/bin/start-box64droid
 	fi
 fi
 if [ -f "$PREFIX/bin/box64droid" ]; then
