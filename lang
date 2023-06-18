@@ -13,7 +13,7 @@ then
 	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
 	fi
-	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
+	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-cn $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 2 ]]
 then
 	echo -e " 替换Box64Droid.conf为繁体中文环境"
@@ -21,7 +21,7 @@ then
 	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_TW.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
 	fi
-	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-tw $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
+	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-tw $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 3 ]]
 then
 	echo -e " 替换Box64Droid.conf为日文环境"
@@ -29,7 +29,7 @@ then
 	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/ja_JP.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
 	fi
-	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-jp $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
+	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-jp $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 4 ]]
 then
    	echo -e " 替换Box64Droid.conf为英文环境"
@@ -37,7 +37,7 @@ then
 	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/en_US.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
 	fi
- 	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/Chinese-LANG-Pack/locale-archive-en $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
+ 	cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-en $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 else
     echo " 未知操作"
     clear
