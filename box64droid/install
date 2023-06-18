@@ -42,7 +42,7 @@ echo -e " 复制字体文件"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/SimSun.ttc $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/wine/share/wine/fonts/SimSun.ttc
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/wine/share/wine/fonts/PMingLiU-TW.ttf
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-cn $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
-echo -e " 替换bashrc为中文环境"
+echo -e " 替换Box64Droid.conf为中文环境"
 sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Box64Droid.conf
 if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
