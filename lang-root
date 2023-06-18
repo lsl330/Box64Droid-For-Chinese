@@ -8,23 +8,35 @@ read lang
 cd ~/
 if [[ $lang == 1 ]]
 then
-	echo -e " 替换bashrc为简体中文环境"
-	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' ~/ubuntu/root/.bashrc
- sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
+	echo -e " 替换Box64Droid.conf为简体中文环境"
+	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' $RootPath/opt/Box64Droid.conf
+	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
+	fi
+ 	sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-cn ~/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 2 ]]
 then
-    echo -e " 替换bashrc为繁体中文环境"
-	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_TW.UTF-8/g' ~/ubuntu/root/.bashrc
- sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-tw ~/ubuntu/usr/lib/locale/locale-archive
+	echo -e " 替换Box64Droid.conf为繁体中文环境"
+	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_TW.UTF-8/g' $RootPath/opt/Box64Droid.conf
+	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_TW.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
+	fi
+	sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-tw ~/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 3 ]]
 then
-    echo -e " 替换bashrc为日文环境"
-	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/ja_JP.UTF-8/g' ~/ubuntu/root/.bashrc
- sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-jp ~/ubuntu/usr/lib/locale/locale-archive
+	echo -e " 替换Box64Droid.conf为日文环境"
+	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/ja_JP.UTF-8/g' $RootPath/opt/Box64Droid.conf
+	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/ja_JP.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
+	fi
+	sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-jp ~/ubuntu/usr/lib/locale/locale-archive
 elif [[ $lang == 4 ]]
 then
-    echo -e " 替换bashrc为英文环境"
-	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/en_US.UTF-8/g' ~/ubuntu/root/.bashrc
+	echo -e " 替换Box64Droid.conf为英文环境"
+	sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/en_US.UTF-8/g' $RootPath/opt/Box64Droid.conf
+	if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+		sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/en_US.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
+	fi
  sudo cp -f ~/ubuntu/root/Chinese-LANG-Pack/locale-archive-en ~/ubuntu/usr/lib/locale/locale-archive
 else
     echo "未知操作"
