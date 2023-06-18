@@ -43,7 +43,10 @@ cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/wine/share/wine/fonts/PMingLiU-TW.ttf
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/locale-archive-cn $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/usr/lib/locale/locale-archive
 echo -e " 替换bashrc为中文环境"
-sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.bashrc
+sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Box64Droid.conf
+if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
+fi
 echo -e " 替换TFM为中文版"
 cp -f $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Chinese-LANG-Pack/TFM.exe $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项"
