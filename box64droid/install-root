@@ -31,8 +31,11 @@ echo -e " 复制字体文件"
 sudo cp -f $RootPath/opt/Chinese-LANG-Pack/SimSun.ttc $RootPath/opt/wine/share/wine/fonts/SimSun.ttc
 sudo cp -f $RootPath/opt/Chinese-LANG-Pack/PMingLiU-TW.ttf $RootPath/opt/wine/share/wine/fonts/PMingLiU-TW.ttf
 sudo cp -f $RootPath/opt/Chinese-LANG-Pack/locale-archive-cn $RootPath/usr/lib/locale/locale-archive
-echo -e " 替换bashrc为中文环境"
-sudo sed -i 's/en_US/zh_CN/g;s/zh_TW/zh_CN/g;s/ja_JP/zh_CN/g' $RootPath/root/.bashrc
+echo -e " 替换Box64Droid.conf为中文环境"
+sudo sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' $RootPath/opt/Box64Droid.conf
+if [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+	sed -i 's/[a-z][a-z]_[[A-Z][A-Z].UTF-8/zh_CN.UTF-8/g' /sdcard/Box64Droid/Box64Droid.conf
+fi
 echo -e " 替换TFM为中文版"
 sudo cp -f $RootPath/opt/Chinese-LANG-Pack/TFM.exe $RootPath/opt/TFM.exe
 echo -e " 起点位置添加快捷启动项" 
