@@ -182,17 +182,17 @@ else
 	mv -f run.bat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/.wine/dosdevices/d:/run.bat
 fi	
 
-if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start" ]; then
-	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start |grep quickstart > /dev/null;then
+if [ -f "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start" ]; then
+	if cat $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start |grep quickstart > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
 		echo -e " 修改start文件"
-		ca=$(awk '/read choice/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start|head -n 1)
+		ca=$(awk '/read choice/{print NR}' $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start|head -n 1)
 		if [ $ca -gt 0 ]; then
-			sed -i "$ca a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-			sed -i "$ca i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-			sed -i "$ca i choice=1" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
-			sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/start
+			sed -i "$ca a fi" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start
+			sed -i "$ca i else" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start
+			sed -i "$ca i choice=1" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start
+			sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/opt/Scripts/start
 		fi
 	fi
 fi
