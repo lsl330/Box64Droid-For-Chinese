@@ -160,17 +160,17 @@ else
 	sudo mv -f run.bat $RootPath/root/.wine/dosdevices/d:/run.bat
 fi	
 
-if sudo test -f "$RootPath/opt/start"; then
-	if sudo cat $RootPath/opt/start |grep 自定义 > /dev/null;then
+if sudo test -f "$RootPath/opt/Scripts/start"; then
+	if sudo cat $RootPath/opt/Scripts/start |grep 自定义 > /dev/null;then
 		echo -e " start已更新，无需更改"
 	else
 		echo -e " 修改start文件"
-		ca=$(sudo awk '/read choice/{print NR}' $RootPath/opt/start|head -n 1)
+		ca=$(sudo awk '/read choice/{print NR}' $RootPath/opt/Scripts/start|head -n 1)
 		if [ $ca -gt 0 ]; then
-			sudo sed -i "$ca a fi" $RootPath/opt/start
-			sudo sed -i "$ca i else" $RootPath/opt/start
-			sudo sed -i "$ca i choice=1" $RootPath/opt/start
-			sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $RootPath/opt/start
+			sudo sed -i "$ca a fi" $RootPath/opt/Scripts/start
+			sudo sed -i "$ca i else" $RootPath/opt/Scripts/start
+			sudo sed -i "$ca i choice=1" $RootPath/opt/Scripts/start
+			sudo sed -i "$ca i if [ -f "/opt/quickstart" ]; then" $RootPath/opt/Scripts/start
 		fi
 	fi
 fi
