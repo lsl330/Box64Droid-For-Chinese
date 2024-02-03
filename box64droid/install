@@ -30,3 +30,16 @@ elif [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 else
 	echo " 未找到Box64Droid.conf，请先运行一遍box64droid再运行此脚本"
 fi
+if lscpu | grep Cortex-A520 > /dev/null; then
+echo " 检测到A520核心，安装a750驱动"
+    if [ -f /sdcard/download/a750native.tar.xz ]; then
+	    echo -e " 检测到download目录存在驱动文件，正在解压"
+    else
+	    rm -f a750native.tar.xz
+	    echo -e " 下载a750驱动文件..."
+	    wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/raw/main/a750native.tar.xz
+	    mv -f a750native.tar.xz /sdcard/download/a750native.tar.xz
+	    echo -e " 下载完毕，正在解压..."
+    fi
+    tar -xvf /storage/emulated/0/Download/a750native.tar.xz -C $PREFIX/
+fi
