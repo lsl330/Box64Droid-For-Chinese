@@ -1,0 +1,35 @@
+#!/bin/bash
+clear
+rm -f Chinese-LANG-Pack.tar.xz
+mkdir ~/drive_e &>/dev/null
+mkdir $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/mnt/drive_e &>/dev/null
+echo -e " 正在运行mobox中文化补丁..." 
+if [ -f "$PREFIX/glibc/share/fonts/SimSun.ttc" ]; then
+	echo -e " 检测到对应目录已存在中文字体文件，不再重复下载中文化补丁"
+elif [ -f /sdcard/download/Chinese-LANG-Pack/SimSun.ttc ]; then
+	echo -e " 检测到download目录存在中文字体文件，正在拷贝"
+	cp -f /sdcard/download/Chinese-LANG-Pack/SimSun.ttc $PREFIX/glibc/share/fonts/SimSun.ttc
+	cp -f /sdcard/download/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/glibc/share/fonts/PMingLiU-TW.ttf
+	cp -f /sdcard/download/Chinese-LANG-Pack/locale-archive-cn $PREFIX/glibc/lib/locale/locale-archive
+elif [ -f /sdcard/download/Chinese-LANG-Pack.tar.xz ]&&[ 811cad9d4e6406db3b004a3229cb1bb2 == $(md5sum /sdcard/download/Chinese-LANG-Pack.tar.xz | cut -d " " -f1) ]
+then
+	echo " 检测存在本地文件，使用本地文件进行安装"
+	rm -rf /sdcard/download/Chinese-LANG-Pack
+	tar -xf /sdcard/download/Chinese-LANG-Pack.tar.xz -C /sdcard/download/
+	cp -f /sdcard/download/Chinese-LANG-Pack/SimSun.ttc $PREFIX/glibc/share/fonts/SimSun.ttc
+	cp -f /sdcard/download/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/glibc/share/fonts/PMingLiU-TW.ttf
+	cp -f /sdcard/download/Chinese-LANG-Pack/locale-archive-cn $PREFIX/glibc/lib/locale/locale-archive
+else
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 补丁下载中"
+	wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+	mv -f Chinese-LANG-Pack.tar.xz /sdcard/download/Chinese-LANG-Pack.tar.xz
+	tar -xf /sdcard/download/Chinese-LANG-Pack.tar.xz -C /sdcard/download/
+	cp -f /sdcard/download/Chinese-LANG-Pack/SimSun.ttc $PREFIX/glibc/share/fonts/SimSun.ttc
+	cp -f /sdcard/download/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/glibc/share/fonts/PMingLiU-TW.ttf
+	cp -f /sdcard/download/Chinese-LANG-Pack/locale-archive-cn $PREFIX/glibc/lib/locale/locale-archive
+fi
+echo -e " 替换Box64Droid.conf为中文环境"
+sed -i 's/C.utf8/zh_CN.utf8/g' $PREFIX/glibc/opt/locale.conf
+echo -e " 替换TFM为中文版"
+cp -f /sdcard/download/Chinese-LANG-Pack/TFM.exe $PREFIX/glibc/opt/apps/tfm.exe
