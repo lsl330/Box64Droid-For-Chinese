@@ -1,8 +1,5 @@
 #!/bin/bash
 clear
-rm -f Chinese-LANG-Pack.tar.xz
-mkdir ~/drive_e &>/dev/null
-mkdir $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/mnt/drive_e &>/dev/null
 echo -e " 正在运行mobox中文化补丁..." 
 if [ -f "$PREFIX/glibc/share/fonts/SimSun.ttc" ]; then
 	echo -e " 检测到对应目录已存在中文字体文件，不再重复下载中文化补丁"
