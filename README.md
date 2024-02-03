@@ -10,6 +10,11 @@ curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/
 安装Box4Droid后，运行以下命令进行配置  
 curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/install && chmod +x install && ./install
 
+# Mobox-For-Chinese  
+本项目基于[https://github.com/Herick75/Box4Droid](https://github.com/olegos2/mobox)  
+安装mobox后，运行以下命令进行配置，只做了中文化，尚未汉化菜单  
+curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/mobox/install && chmod +x install && ./install  
+
 # Box64Droid-For-Chinese 和 Box4Droid-For-Chinese的共同修改  
 1、添加中文，并可在更换wine版本时自动切换中文  
 2、在更新wine时，先检测在download/wineversions文件夹中是否存在离线版本。若存在，直接使用离线版本进行更新。  
