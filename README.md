@@ -1,9 +1,8 @@
 # Box64Droid-For-Chinese  
 本项目基于https://github.com/Ilya114/Box64Droid  
-安装方式(proot版)，运行以下命令进行配置  
+安装方式(native版)，运行以下命令进行配置  
 curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box64droid/install && chmod +x install && ./install  
-安装方式(chroot版)，运行以下命令进行配置  
-安装Box64Droid后，运行curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box64droid/install-root && chmod +x install&& ./install
+native版已经足够，不再支持proot和chroot版  
 
 # Box4Droid-For-Chinese  
 本项目基于https://github.com/Herick75/Box4Droid  
