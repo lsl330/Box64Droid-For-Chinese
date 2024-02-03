@@ -1,0 +1,32 @@
+#!/bin/bash
+clear
+echo -e " 正在运行mobox中文化补丁..." 
+if [ -f "$PREFIX/glibc/opt/wine/share/wine/fonts/SimSun.ttc" ]; then
+	echo -e " 检测到对应目录已存在中文字体文件，不再重复下载中文化补丁"
+elif [ -f /sdcard/download/Chinese-LANG-Pack/SimSun.ttc ]; then
+	echo -e " 检测到download目录存在中文字体文件，正在拷贝"
+elif [ -f /sdcard/download/Chinese-LANG-Pack.tar.xz ]&&[ 811cad9d4e6406db3b004a3229cb1bb2 == $(md5sum /sdcard/download/Chinese-LANG-Pack.tar.xz | cut -d " " -f1) ]
+then
+	echo " 检测存在本地文件，使用本地文件进行安装"
+	rm -rf /sdcard/download/Chinese-LANG-Pack
+	tar -xf /sdcard/download/Chinese-LANG-Pack.tar.xz -C /sdcard/download/
+else
+	rm -f Chinese-LANG-Pack.tar.xz
+	echo -e " 补丁下载中"
+	wget -q --show-progress https://github.com/lsl330/Box64Droid-For-Chinese/releases/download/Chinese-LANG-Pack/Chinese-LANG-Pack.tar.xz
+	mv -f Chinese-LANG-Pack.tar.xz /sdcard/download/Chinese-LANG-Pack.tar.xz
+	tar -xf /sdcard/download/Chinese-LANG-Pack.tar.xz -C /sdcard/download/
+fi	
+cp -f /sdcard/download/Chinese-LANG-Pack/SimSun.ttc $PREFIX/glibc/opt/wine/share/wine/fonts/SimSun.ttc
+cp -f /sdcard/download/Chinese-LANG-Pack/PMingLiU-TW.ttf $PREFIX/glibc/opt/wine/share/wine/fonts/PMingLiU-TW.ttf
+cp -f /sdcard/download/Chinese-LANG-Pack/locale-archive-cn $PREFIX/glibc/lib/locale/locale-archive
+echo -e " 替换TFM为中文版"
+cp -f /sdcard/download/Chinese-LANG-Pack/TFM.exe $PREFIX/glibc/opt/tfm.exe
+if [ -f /sdcard/Box64Droid/Box64Droid.conf ]&& cat /sdcard/Box64Droid/Box64Droid.conf |grep zh_CN.utf8 > /dev/null; then
+	echo -e " 已打中文环境补丁"
+elif [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
+	echo -e " 修改语言环境为中文"
+	echo "export LC_ALL=zh_CN.utf8" >> /sdcard/Box64Droid/Box64Droid.conf
+else
+	echo " 未找到Box64Droid.conf，请先运行一遍box64droid再运行此脚本"
+fi
