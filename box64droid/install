@@ -26,7 +26,7 @@ if [ -f /sdcard/Box64Droid/Box64Droid.conf ]&& cat /sdcard/Box64Droid/Box64Droid
 	echo -e " 已打中文环境补丁"
 elif [ -f /sdcard/Box64Droid/Box64Droid.conf ]; then
 	echo -e " 修改语言环境为中文"
-	echo "export LC_ALL=zh_CN.utf8" >> /sdcard/Box64Droid/Box64Droid.conf
+	echo "os.environ[\"LC_ALL\"]=\"zh_CN.utf8\"" >> /sdcard/Box64Droid/Box64Droid.conf
 else
 	echo " 未找到Box64Droid.conf，请先运行一遍box64droid再运行此脚本"
 fi
