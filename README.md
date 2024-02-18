@@ -10,7 +10,7 @@ native版已经足够，不再支持proot和chroot版
 curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/box4droid/0.0.3/install && chmod +x install && ./install
 
 # Mobox-For-Chinese  
-本项目基于[https://github.com/Herick75/Box4Droid](https://github.com/olegos2/mobox)  
+本项目基于https://github.com/olegos2/mobox  
 安装mobox后，运行以下命令进行配置，只做了中文化，尚未汉化菜单  
 curl -o install https://raw.githubusercontent.com/lsl330/Box64Droid-For-Chinese/main/mobox/install && chmod +x install && ./install  
 
